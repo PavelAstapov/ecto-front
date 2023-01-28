@@ -4,10 +4,8 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import Image from 'next/image'
-const edjsHTML = require('editorjs-html');
-import ReactHtmlParser from 'react-html-parser';
 import { formatDate } from "@/components/helpers/format-date";
-import Blocks, { RenderFn } from 'editorjs-blocks-react-renderer';
+import Blocks from 'editorjs-blocks-react-renderer';
 
 export default function PostPage({ articles }:any) {
 	const date = formatDate(articles.updatedAt);
