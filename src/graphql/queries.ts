@@ -366,24 +366,86 @@ export const GET_BLOG_SLUGS = gql`
 `
 
 export const ARTICLE_DATA = gql`
-  query ($slugUrl: String!) {
-	articles(filters: { url: { eq: $slugUrl }}) {
-    data {
-      attributes {
-        url
-        title
-        category
-        content
-        readingTime
-        mainImage {
-          data {
-            attributes {
-              url
+  query ARTICLE_DATA ($slugUrl: String!) {
+    articles(filters: { url: { eq: $slugUrl }}) {
+      data {
+        id
+        attributes {
+          url
+          title
+          category
+          content
+          readingTime
+          updatedAt
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          author {
+            data {
+              attributes {
+                name
+                url
+                jobTitle
+                instagram
+                twitter
+                website
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          seo {
+            metaTitle
+            metaDescription
+          }
+          relatedArticles {
+            data{
+              attributes {
+                title
+                url
+                readingTime
+                updatedAt
+                author {
+                  data {
+                    attributes {
+                      name
+                      img {
+                        data {
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
     }
-	}
-}
+  }
+`
+
+export const GET_NEXT_POST = gql`
+  query GET_NEXT_PREV_POST ($id: ID!) {
+    articles(filters: { id: { eq: $id }}) {
+      data {
+        attributes {
+          url
+          title
+        }
+      }
+    }
+  }
 `

@@ -52,8 +52,11 @@ function HeaderMenu() {
               <Image
                 src={Logo}
                 alt="Ecto"
-                width={95}
-                height={28}
+                width="95"
+                height="28"
+                priority
+                placeholder="blur"
+                blurDataURL={Logo.src}
               />
             </Link>
             <InputGroup width="320px" display={{ base: "none", lg: 'block' }}>

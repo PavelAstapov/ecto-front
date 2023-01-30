@@ -1,10 +1,12 @@
 import {
+	ARTICLE_DATA,
 	GET_BEAUTY_POSTS,
 	GET_FASHION_POSTS,
 	GET_FOOTER_MENU,
 	GET_FOUR_LATESTS_POSTS,
 	GET_LIFESTYLE_POSTS,
 	GET_MAIN_BANNER,
+	GET_NEXT_POST,
 	GET_PICK_POSTS,
 	GET_TRENDING_POSTS,
 	GET_WELLNESS_POSTS
@@ -32,48 +34,6 @@ export const getMainBanner = async function getServerSideProps() {
     banners: data.homepage.data.attributes.articles.data
   }
 }
-
-// export const getBlogSLugs = async function getStaticPaths() {
-//   const client = new ApolloClient({
-//     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-// 		cache: new InMemoryCache(),
-// 	})
-
-// 	const { data } = await client.query({
-// 		query: GET_BLOG_SLUGS,
-// 	})
-
-// 	const paths = data?.articles.data.map((post: any) =>{
-// 		return { params: { slug: post.attributes.url }}
-// 	})
-
-// 	return {
-//     paths,
-// 		fallback: false
-//   }
-// }
-
-// export const blogQuery = async function getStaticProps({ params }: any) {
-//   const client = new ApolloClient({
-//     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-// 		cache: new InMemoryCache(),
-// 	})
-
-// 	const { data } = await client.query({
-// 		query: ARTICLE_DATA,
-// 		variables: { slugUrl: params.slug },
-// 	})
-
-// 	const attr = data.articles.data[0].attributes
-
-// 	return {
-//     props: {
-// 			articles: {
-// 				url: attr.url
-// 			}
-// 		}
-//   }
-// }
 
 export const getFooterMenu = async function getServerSideProps() {
   const client = new ApolloClient({
@@ -193,4 +153,38 @@ export const getTrendingPosts = async function getServerSideProps() {
 	return {
     articles: data.articles.data
   }
+}
+
+export const getArticleData = async function getServerSideProps( params: string ) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: ARTICLE_DATA,
+		variables: { slugUrl: params },
+	})
+
+	const attr = data.articles.data[0].attributes;
+
+	return {
+		article: data.articles.data[0],
+  }
+}
+
+export const getPrevArticleData = async function getServerSideProps( params: string) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: GET_NEXT_POST,
+		variables: { id: params },
+	})
+
+	return {
+		article: data.articles.data[0]
+	}
 }

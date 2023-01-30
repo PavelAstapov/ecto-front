@@ -34,6 +34,9 @@ const theme = extendTheme({
       },
       '.onBanner + .show' : {
         display: 'block'
+      },
+      '.share-wrapper button:hover' : {
+        backgroundColor: '#BEE3F8 !important'
       }
     },
   },
