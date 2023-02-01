@@ -49,6 +49,7 @@ export interface PreviewBlogData {
       data: {
         attributes: {
           name: string
+          url: string
           img?: {
             data?: [{
               attributes?: {
@@ -80,6 +81,7 @@ export interface MainBanner {
       data: {
         attributes: {
           name: string
+          url: string
         }
       }
     }
@@ -109,6 +111,7 @@ export interface BlogPostsMainData {
       data: {
         attributes: {
           name: string
+          url: string
           img: {
             data: [{
               attributes: {
@@ -165,4 +168,20 @@ export interface FooterMenuData {
 
 export interface MainBanners{
   banners: Array<MainBanner>;
+}
+
+export interface SeoData {
+  seo: {
+    metaTitle: string
+    metaDescription: string
+    keywords: string
+    canonicalURL: string
+    metaImage: {
+      data: {
+        attributes: {
+          url :string
+        }
+      }
+    }
+  }
 }

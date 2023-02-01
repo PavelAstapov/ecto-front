@@ -47,9 +47,10 @@ function PickPosts() {
 				maxWidth="1216px"
 				margin="0 auto"
 				width="90%"
-				columnGap="32px"
+				columnGap="16px"
 				rowGap="32px"
 				flexWrap="wrap"
+				alignItems={{ base: "flex-start", md: "stretch" }}
 				justifyContent="flex-start"
 			>
 				{data && data?.articles.slice(0, 5).map(( item: BlogPostsMainData, index: number ) =>

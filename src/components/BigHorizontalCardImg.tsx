@@ -19,7 +19,7 @@ function HorizontalCardImg({item}: Props) {
       direction="row"
       justify="flex-start"
       bgColor="#fff"
-      align="center"
+      alignItems={{ base: "flex-start", md: "stretch" }}
       width={{ base: "100%", lg: "calc(50% - 16px)" }}
       flexDirection={{ base: "column", md: "row" }}
       boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"

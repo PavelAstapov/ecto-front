@@ -334,6 +334,7 @@ query GET_MAIN_BANNER {
                 data {
                   attributes {
                     name
+                    url
                   }
                 }
               }
@@ -406,9 +407,18 @@ export const ARTICLE_DATA = gql`
           seo {
             metaTitle
             metaDescription
+            canonicalURL
+          }
+          tags {
+            data {
+              attributes {
+                tag
+                url
+              }
+            }
           }
           relatedArticles {
-            data{
+            data {
               attributes {
                 title
                 url
@@ -418,13 +428,7 @@ export const ARTICLE_DATA = gql`
                   data {
                     attributes {
                       name
-                      img {
-                        data {
-                          attributes {
-                            url
-                          }
-                        }
-                      }
+                      url
                     }
                   }
                 }

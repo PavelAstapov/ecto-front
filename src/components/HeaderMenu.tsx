@@ -11,12 +11,6 @@ import {
 import { getHeaderMenu } from './api/api.service';
 import { HeaderData, HeaderMenuData } from '@/Types/types';
 
-// interface FooterData{
-//   menu: [{
-//     title: string,
-//     items: FooterSubMenu[],
-//   }]
-// }
 
 function HeaderMenu() {
   const { isOpen, onToggle } = useDisclosure();

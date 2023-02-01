@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import {
     Box,
-		Heading,
 		Text,
 		Flex,
 		FormControl,
-		FormLabel,
 		Input,
 		FormErrorMessage,
 		Button,
@@ -14,7 +12,7 @@ import {
 import { subscribeUser } from '@strapi-newsletter/react';
 import { Spinner } from '@chakra-ui/react'
 
-function SubscribeBlock() {
+function SubscribeBlogBlock() {
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading ] = useState(false);
 	const toast = useToast()
@@ -51,17 +49,11 @@ function SubscribeBlock() {
 
   return (
 		<Box
-			as="section"
 			width="100%"
-			paddingBottom={{ base: "60px", lg: '80px' }}
-			paddingTop={{ base: "60px", lg: '80px' }}
 			position="relative"
-			bgColor="gray.50"
 		>
 			<Flex
-				maxWidth="1216px"
-				margin="0 auto"
-				width="90%"
+				width="100%"
 				flexDir="column"
 				bgColor="#fff"
 				flexWrap="wrap"
@@ -69,27 +61,17 @@ function SubscribeBlock() {
 				alignItems="center"
 				boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
 				borderRadius="8px"
-				pt={{ base: "36px", md: "56px"}}
-				pb={{ base: "36px", md: "56px"}}
+				padding="28px"
 			>
-				<Heading
-					mb="16px"
-					as="h2"
-					color="gray.800"
-					textAlign="center"
-				>
-					Subscribe to our newsletter!
-				</Heading>
 				<Text
 					lineHeight="1.56"
-          fontWeight="regular"
+          fontWeight="400"
           fontSize="18px"
-          color="gray.600"
-          alignSelf="stretch"
-          textAlign="center"
+          color="gray.500"
+          textAlign="left"
 					mb="24px"
 				>
-					We'll send you the best of our blog just once a month. We promise.
+					Make sure to subscribe to our newsletter and be the first to know the news.
 				</Text>
 					<form
 						style={{ width: "100%", maxWidth: "304px", textAlign: "center"}}
@@ -102,7 +84,7 @@ function SubscribeBlock() {
 								width="100%"
 								border="1px solid #E2E8F0;"
 								name="email"
-								placeholder="Enter your email to join"
+								placeholder="Email Address"
 								type='email' />
 								{isError && <FormErrorMessage mb="10px">Email is required.</FormErrorMessage>}
 						</FormControl>
@@ -125,4 +107,4 @@ function SubscribeBlock() {
   );
 }
 
-export default SubscribeBlock;
+export default SubscribeBlogBlock ;

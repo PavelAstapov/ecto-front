@@ -31,7 +31,7 @@ function HorizontalCardImg({item}: Props) {
       <ChakraLink
         as={Link}
         href={url}
-        width={{ base: "100%", md: "200px" }}
+        minWidth={{ base: "100%", md: "200px" }}
         height={{ base: "200px", lg: "100%" }}
         position="relative"
         borderRadius="8px"

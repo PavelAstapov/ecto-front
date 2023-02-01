@@ -14,6 +14,10 @@ import ShareButtons from "@/components/ShareButtons";
 import AnchorLink from 'react-anchor-link-smooth-scroll-v2'
 import CategoryListItem from "@/components/CategoryListItem";
 import { categoryData } from "@/components/helpers/category - data";
+import { NextSeo } from "next-seo";
+import PostCardNoImg from "@/components/PostCardNoImg";
+import SubscribeBlogBlock from "@/components/SubscribeBlogBlock ";
+import { Checklist, Delimiter, Header, ImageBlock, ListBLock, Paragraph, Quote, CodeBlock, TableBlock } from "@/components/helpers/EditorBlocks";
 
 export default function PostPage() {
 	const [data, setData] = useState<any>();
@@ -53,7 +57,7 @@ export default function PostPage() {
 		}
 	}, [router.isReady, router.asPath]);
 
-	const scrollToHeaders = () =>{
+	const scrollToHeaders = () => {
 		const ArticleWrapper = document.querySelector('article');
 		const SecodLevelTitles = ArticleWrapper?.querySelectorAll('h2');
 
@@ -64,10 +68,37 @@ export default function PostPage() {
 
 	useEffect(() => {
 		scrollToHeaders()
-	}, [data])
+	}, [data]);
+
+	console.log(data && JSON.parse(data.article.attributes.content))
 
   return(
 		<>
+		{data && (
+			<NextSeo
+        title={data?.article.attributes.seo.metaTitle}
+        description={data?.article.attributes.seo.metaDescription}
+				canonical={data?.article.attributes.seo.canonicalURL && data?.article.attributes.seo.canonicalURL}
+				openGraph={{
+					title: data?.article.attributes.seo.metaTitle,
+					description: data.article.attributes.seo.metaDescription,
+					url: `${process.env.SITE_URL}/${data.article.attributes.url}`,
+					type: 'article',
+					article: {
+						publishedTime: data.article.attributes.updatedAt,
+						authors: [
+							`${process.env.NEXT_PUBLIC_API_URL}/authors/${data.article.attributes.author.data.attributes.url}`,
+						],
+					},
+					images: [
+						{
+							url: data.article.attributes.mainImage.data.attributes.url,
+							alt: data?.article.attributes.seo.metaTitle,
+						},
+					],
+				}}
+      />
+		)}
 			<Box
 				maxWidth="1216px"
 				margin="0 auto"
@@ -96,7 +127,7 @@ export default function PostPage() {
 							columnGap="64px"
 						>
 							<Skeleton borderRadius="8px" width="100%" height={{ base: "400px", lg: "600px"}}/>
-							<Skeleton borderRadius="8px" minWidth="360px" height={{ base: "200px", lg: "600px"}} />
+							<Skeleton borderRadius="8px" minWidth={{ base: "100%", md: "360px" }} height={{ base: "200px", lg: "600px"}} />
 						</Flex>
 					</>
 				)}
@@ -115,7 +146,6 @@ export default function PostPage() {
 							flexWrap="wrap"
 							mb={{ base: "60px", lg: "80px" }}
 						>
-
 								<Text
 									color="gray.500"
 									fontSize="16px"
@@ -131,7 +161,6 @@ export default function PostPage() {
 										{data.article.attributes.author.data.attributes.name}
 									</ChakraLink>
 								</Text>
-
 							<Text
 								color="gray.500"
 								fontSize="16px"
@@ -177,11 +206,13 @@ export default function PostPage() {
 						</Flex>
 						<Flex
 							columnGap="64px"
+							alignItems="flex-start"
 							flexDir={{ base: "column", lg: "row" }}
 						>
 							<Box
 								bgColor="#fff"
 								as="article"
+								maxWidth="100%"
 								overflow="hidden"
 								boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);"
 								borderRadius="8px"
@@ -195,6 +226,9 @@ export default function PostPage() {
 									<Image
 										src={data.article.attributes.mainImage.data.attributes.url}
 										fill
+										style={{
+											objectFit: "cover"
+										}}
 										placeholder="blur"
 										blurDataURL={data.article.attributes.mainImage.data.attributes.url}
 										alt={data.article.attributes.title}
@@ -203,9 +237,22 @@ export default function PostPage() {
 									/>
 								</Box>
 								<Box
-									padding="0 32px 32px 32px"
+									className="article"
+									padding="0 32px 0 32px"
 								>
-									<Blocks data={JSON.parse(data.article.attributes.content)} />
+									<Blocks
+										data={JSON.parse(data.article.attributes.content)}
+										renderers={{
+											checklist: Checklist,
+											header: Header,
+											paragraph: Paragraph,
+											delimiter: Delimiter,
+											image: ImageBlock,
+											list: ListBLock,
+											quote: Quote,
+											code: CodeBlock,
+											table: TableBlock,
+										}}/>
 								</Box>
 								<Divider
 									mt="32px"
@@ -220,9 +267,12 @@ export default function PostPage() {
 									padding="0 32px 0 32px"
 									justifyContent="space-between"
 									columnGap="32px"
+									rowGap="20px"
+									flexDirection={{ base: "column", md: "row" }}
 								>
 									<Flex
 										columnGap="4px"
+										alignItems="center"
 									>
 										<Text
 											marginRight="8px"
@@ -232,6 +282,21 @@ export default function PostPage() {
 										>
 											Tags
 										</Text>
+										{data.article.attributes.tags.data && (data.article.attributes.tags.data).map((item: any) =>
+											<ChakraLink
+												as={Link}
+												padding="8px 12px"
+												borderRadius="8px"
+												bgColor="gray.100"
+												_hover={{ bgColor: "blue.100" }}
+												color="gray.500"
+												fontWeight="500"
+												fontSize="12px"
+												href={`tags/${item.attributes.url}`}
+											>
+												#{item.attributes.tag}
+											</ChakraLink>
+										)}
 									</Flex>
 									<ShareButtons />
 								</Flex>
@@ -247,7 +312,9 @@ export default function PostPage() {
 										padding="27px 27px 43px 27px"
 										justifyContent="space-between"
 									>
-										<Box>
+										<Box
+											flex="1 2 100%"
+										>
 											<Text
 												color="gray.500"
 												fontSize={{ base: "13", md: "16" }}
@@ -271,6 +338,7 @@ export default function PostPage() {
 										</Box>
 										<Box
 											textAlign="right"
+											flex="1 2 100%"
 										>
 											<Text
 												color="gray.500"
@@ -496,6 +564,25 @@ export default function PostPage() {
 									{categoryData.map((items, index) =>
 										<CategoryListItem key={index} item={items} />
 									)}
+								</Box>
+								<SubscribeBlogBlock />
+								<Box>
+									<Text
+										fontWeight="700"
+										fontSize="18px"
+										mb="12px"
+									>
+										Related Posts
+									</Text>
+									<Flex
+										width="100%"
+										flexDirection="column"
+										rowGap="12px"
+									>
+										{(data.article.attributes.relatedArticles.data).map((item: any) =>
+											<PostCardNoImg item={item} />
+										)}
+									</Flex>
 								</Box>
 							</Box>
 						</Flex>
