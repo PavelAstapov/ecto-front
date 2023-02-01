@@ -70,8 +70,6 @@ export default function PostPage() {
 		scrollToHeaders()
 	}, [data]);
 
-	console.log(data && JSON.parse(data.article.attributes.content))
-
   return(
 		<>
 		{data && (
@@ -282,8 +280,9 @@ export default function PostPage() {
 										>
 											Tags
 										</Text>
-										{data.article.attributes.tags.data && (data.article.attributes.tags.data).map((item: any) =>
+										{data.article.attributes.tags.data && (data.article.attributes.tags.data).map((item: any, i: number) =>
 											<ChakraLink
+												key={i}
 												as={Link}
 												padding="8px 12px"
 												borderRadius="8px"
@@ -579,8 +578,8 @@ export default function PostPage() {
 										flexDirection="column"
 										rowGap="12px"
 									>
-										{(data.article.attributes.relatedArticles.data).map((item: any) =>
-											<PostCardNoImg item={item} />
+										{(data.article.attributes.relatedArticles.data).map((item: any, i: number) =>
+											<PostCardNoImg key={i} item={item} />
 										)}
 									</Flex>
 								</Box>

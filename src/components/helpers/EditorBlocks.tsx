@@ -18,6 +18,7 @@ import {
   Tr,
   Tfoot,
   Table,
+  As,
 } from "@chakra-ui/react";
 import HTMLReactParser from "html-react-parser";
 import Image from 'next/image'
@@ -60,18 +61,19 @@ export const Checklist: RenderFn<{
 
 export const Header: RenderFn<{
   text: string;
-  level: any;
+  level: number;
   id: string
   }> = ({
     data,
   }) => {
+    const TitleLevel = (`h${data.level}`) as As<any> | undefined
     return (
       <Heading
         mt={{ base: "30px", lg: "48px" }}
         mb="32px"
         _first={{ mt: "0" }}
         color="gray.800"
-        as={`h${data.level}`}
+        as={TitleLevel}
       >
         {data.text}
       </Heading>
