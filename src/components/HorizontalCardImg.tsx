@@ -38,7 +38,15 @@ function HorizontalCardImg({item}: Props) {
         overflow="hidden"
         display="block"
       >
-        <Image fill style={{ objectFit:"cover" }} src={item!.attributes.mainImage.data.attributes.url} alt={item!.attributes.title}/>
+        <Image
+          placeholder="blur"
+          blurDataURL={item!.attributes.mainImage.data.attributes.url}
+          priority={false}
+          sizes="(max-width: 768px) 200px, 200px"
+          fill
+          style={{ objectFit:"cover" }}
+          src={item!.attributes.mainImage.data.attributes.url}
+          alt={item!.attributes.title}/>
       </ChakraLink>
       <Stack
         padding="16px"

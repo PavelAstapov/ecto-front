@@ -453,3 +453,115 @@ export const GET_NEXT_POST = gql`
     }
   }
 `
+
+export const GET_LATEST_CATEGORY_POSTS = gql`
+query GET_LATEST_CATEGORY_POSTS ($category: String!, $id: ID!) {
+	articles(filters: { category: {eq: $category}, id: {ne: $id} }, sort: "id:desc", pagination: { start: 0, limit: 4 })  {
+    data {
+      id
+      attributes {
+        title
+        url
+        updatedAt
+        category
+        readingTime
+        author {
+          data {
+            attributes {
+               name
+               img {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+        mainImage {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+	}
+}
+`
+
+export const TAG_DATA = gql`
+  query TAG_DATA ($slugUrl: String!) {
+    tags(filters: { url: { eq: $slugUrl }}) {
+      data {
+        id
+        attributes {
+          tag
+          url
+          description
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
+        }
+      }
+    }
+  }
+`
+
+export const LATESTS_POSTS_BY_TAG = gql`
+  query LATESTS_POSTS_BY_TAG ($tag: String!, $page: Int!) {
+	articles (filters: {tags:{url: {contains: $tag}}}, pagination: {page: $page, pageSize: 6}, sort: "id:desc")  {
+    data {
+      id
+      attributes {
+        title
+        url
+        updatedAt
+        category
+        readingTime
+        previewText
+        tags {
+          data {
+            attributes {
+              tag
+            }
+          }
+        }
+        author {
+          data {
+            attributes {
+               name
+               img {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+        mainImage {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+    meta {
+      pagination {
+        pageSize
+        pageCount
+        page
+        total
+      }
+    }
+	}
+}
+`

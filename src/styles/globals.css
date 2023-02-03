@@ -83,6 +83,13 @@
   background-color: #F7FAFC;
 }
 
+button.disabled {
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #E2E8F0;
+  color: #323232;
+}
+
 /* .article table {
   width: 100%;
   border: 1px solid #E2E8F0;

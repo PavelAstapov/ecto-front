@@ -27,7 +27,13 @@ function PickPostCard({item}: Props) {
       transition="transform 250ms ease, box-shadow 250ms ease"
       _hover={{ textDecoration: "none", boxShadow: "0px 2px 4px rgb(46 41 51 / 8%), 0px 5px 10px rgb(71 63 79 / 16%)", transform: "translateY(-0.25rem)" }}
     >
-      <Image fill style={{ objectFit:"cover" }} src={item!.attributes.mainImage.data.attributes.url} alt={item!.attributes.title}/>
+      <Image
+        placeholder="blur"
+        blurDataURL={item!.attributes.mainImage.data.attributes.url}
+        style={{ objectFit:"cover" }}
+        sizes="(max-width: 767px) 300px, 350px"
+        fill
+        src={item!.attributes.mainImage.data.attributes.url} alt={item!.attributes.title}/>
       <Box
           position="absolute"
           width="100%"

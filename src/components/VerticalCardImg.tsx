@@ -6,10 +6,11 @@ import { formatDate } from './helpers/format-date';
 
 interface Props {
   item?: BlogPostsMainData,
+  notMainPage?: boolean
 }
 
-function HorizontalCardImg({item}: Props) {
-  const { url, title, readingTime, updatedAt } = item!.attributes;
+function HorizontalCardImg({ item, notMainPage = false }: Props) {
+  const { url, title, readingTime, updatedAt, previewText } = item!.attributes;
   const date = formatDate(updatedAt);
 
   return(
@@ -19,8 +20,7 @@ function HorizontalCardImg({item}: Props) {
       justify="flex-start"
       bgColor="#fff"
       align="center"
-      width={{ base: "100%", lg: "32%" }}
-      maxW={{ base: "none", md: "49%", lg: "32%" }}
+      width={{ base: "100%", lg: "calc(33% - 17.5px)" }}
       flexDirection="column"
       boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
       borderRadius="8px"
@@ -31,7 +31,7 @@ function HorizontalCardImg({item}: Props) {
     >
       <ChakraLink
         as={Link}
-        href={url}
+        href={`/${url}`}
         width="100%"
         height="268px"
         position="relative"
@@ -39,7 +39,14 @@ function HorizontalCardImg({item}: Props) {
         overflow="hidden"
         display="block"
       >
-        <Image fill style={{ objectFit:"cover" }} src={item!.attributes.mainImage.data.attributes.url} alt={item!.attributes.title}/>
+        <Image
+          fill
+          placeholder="blur"
+          blurDataURL={item!.attributes.mainImage.data.attributes.url}
+          style={{ objectFit:"cover" }}
+          sizes="(max-width: 767px) 450px, 500px"
+          src={item!.attributes.mainImage.data.attributes.url}
+          alt={item!.attributes.title}/>
       </ChakraLink>
       <Stack
         padding="16px"
@@ -51,7 +58,7 @@ function HorizontalCardImg({item}: Props) {
       >
         <ChakraLink
           as={Link}
-          href={url}
+          href={`/${url}`}
           alignSelf="stretch"
           _hover={{ textDecor: "none" }}
         >
@@ -64,6 +71,18 @@ function HorizontalCardImg({item}: Props) {
           >
             {title}
           </Text>
+          {notMainPage && (
+            <Text
+              lineHeight="24px"
+              fontWeight="400"
+              fontSize="16px"
+              color="gray.600"
+              alignSelf="stretch"
+              mt="16px"
+            >
+              {previewText}
+            </Text>
+          )}
         </ChakraLink>
         <Stack
           alignSelf="stretch"

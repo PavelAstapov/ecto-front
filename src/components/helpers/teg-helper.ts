@@ -6,22 +6,22 @@ export function GetTagInfo(category: string){
   switch (category) {
     case "Beauty":
       categoryName = "Beauty";
-      categoryLink = "/beauty"
+      categoryLink = "category/beauty"
       categoryColor = "pink.500"
       break;
     case "Fashion_and_Style":
       categoryName = "Fashion & Style";
-      categoryLink = "fashion-and-style"
+      categoryLink = "category/fashion-and-style"
       categoryColor =  "pink.500"
       break;
     case "Food_and_Wellness":
       categoryName = "Food & Wellness";
-      categoryLink = "/food-and-wellness"
+      categoryLink = "category/food-and-wellness"
       categoryColor = "orange.500"
       break;
     case "Lifestyle":
       categoryName = "Lifestyle";
-      categoryLink = "/lifestyle"
+      categoryLink = "category/lifestyle"
       categoryColor = "purple.500"
       break;
     default:

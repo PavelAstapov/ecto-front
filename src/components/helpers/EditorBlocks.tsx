@@ -137,7 +137,15 @@ export const ImageBlock: RenderFn<{
           width="100%"
           position="relative"
         >
-          <Image style={{ objectFit: "cover" }} fill src={data.file.formats.medium.url} alt="ecto blog" />
+          <Image
+            placeholder="blur"
+            blurDataURL={data.file.formats.medium.url}
+            priority={false}
+            sizes="(max-width: 768px) 90vw, 1200px"
+            style={{ objectFit: "cover" }}
+            fill
+            src={data.file.formats.medium.url}
+            alt="ecto blog" />
         </Box>
       <figcaption
         style={{

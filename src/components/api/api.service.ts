@@ -4,12 +4,15 @@ import {
 	GET_FASHION_POSTS,
 	GET_FOOTER_MENU,
 	GET_FOUR_LATESTS_POSTS,
+	GET_LATEST_CATEGORY_POSTS,
 	GET_LIFESTYLE_POSTS,
 	GET_MAIN_BANNER,
 	GET_NEXT_POST,
 	GET_PICK_POSTS,
 	GET_TRENDING_POSTS,
-	GET_WELLNESS_POSTS
+	GET_WELLNESS_POSTS,
+	LATESTS_POSTS_BY_TAG,
+	TAG_DATA
 } from '@/graphql/queries';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import axios from 'axios';
@@ -155,7 +158,7 @@ export const getTrendingPosts = async function getServerSideProps() {
   }
 }
 
-export const getArticleData = async function getServerSideProps( params: string ) {
+export const getArticleData = async function getServerSideProps(params: string ) {
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
 		cache: new InMemoryCache(),
@@ -166,14 +169,12 @@ export const getArticleData = async function getServerSideProps( params: string 
 		variables: { slugUrl: params },
 	})
 
-	const attr = data.articles.data[0].attributes;
-
 	return {
 		article: data.articles.data[0],
   }
 }
 
-export const getPrevArticleData = async function getServerSideProps( params: string) {
+export const getPrevArticleData = async function getServerSideProps(params: string) {
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
 		cache: new InMemoryCache(),
@@ -186,5 +187,53 @@ export const getPrevArticleData = async function getServerSideProps( params: str
 
 	return {
 		article: data.articles.data[0]
+	}
+}
+
+export const getLatestCategoryData = async function getServerSideProps(params: any) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: GET_LATEST_CATEGORY_POSTS,
+		variables: { category: params.attributes.category,  id: params.id },
+	})
+
+	return {
+		articles: data.articles.data
+	}
+}
+
+export const getTagData = async function getServerSideProps(params: string ) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: TAG_DATA,
+		variables: { slugUrl: params },
+	})
+
+	return {
+		tag: data.tags.data[0],
+  }
+}
+
+export const getLatestPostsByTag = async function getServerSideProps(tag: string, page: number) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: LATESTS_POSTS_BY_TAG,
+		variables: { tag: tag,  page: page },
+	})
+
+	return {
+		articles: data.articles
 	}
 }

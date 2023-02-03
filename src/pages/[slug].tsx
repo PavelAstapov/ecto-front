@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { formatDate } from "@/components/helpers/format-date";
 import Blocks from 'editorjs-blocks-react-renderer';
 import SubscribeBlock from "@/components/SubscribeBlock";
-import { getArticleData, getPrevArticleData } from "@/components/api/api.service";
+import { getArticleData, getLatestCategoryData, getPrevArticleData } from "@/components/api/api.service";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Skeleton } from '@chakra-ui/react';
@@ -16,8 +16,10 @@ import CategoryListItem from "@/components/CategoryListItem";
 import { categoryData } from "@/components/helpers/category - data";
 import { NextSeo } from "next-seo";
 import PostCardNoImg from "@/components/PostCardNoImg";
-import SubscribeBlogBlock from "@/components/SubscribeBlogBlock ";
+import SubscribeBlogBlock from "@/components/SubscribeBlogBlock";
 import { Checklist, Delimiter, Header, ImageBlock, ListBLock, Paragraph, Quote, CodeBlock, TableBlock } from "@/components/helpers/EditorBlocks";
+import BlogLatestPosts from "@/components/BlogLatestPosts";
+import Comments from "@/components/Comments";
 
 export default function PostPage() {
 	const [data, setData] = useState<any>();
@@ -72,31 +74,31 @@ export default function PostPage() {
 
   return(
 		<>
-		{data && (
-			<NextSeo
-        title={data?.article.attributes.seo.metaTitle}
-        description={data?.article.attributes.seo.metaDescription}
-				canonical={data?.article.attributes.seo.canonicalURL && data?.article.attributes.seo.canonicalURL}
-				openGraph={{
-					title: data?.article.attributes.seo.metaTitle,
-					description: data.article.attributes.seo.metaDescription,
-					url: `${process.env.SITE_URL}/${data.article.attributes.url}`,
-					type: 'article',
-					article: {
-						publishedTime: data.article.attributes.updatedAt,
-						authors: [
-							`${process.env.NEXT_PUBLIC_API_URL}/authors/${data.article.attributes.author.data.attributes.url}`,
-						],
-					},
-					images: [
-						{
-							url: data.article.attributes.mainImage.data.attributes.url,
-							alt: data?.article.attributes.seo.metaTitle,
+			{data && (
+				<NextSeo
+					title={data?.article.attributes.seo.metaTitle}
+					description={data?.article.attributes.seo.metaDescription}
+					canonical={data?.article.attributes.seo.canonicalURL && data?.article.attributes.seo.canonicalURL}
+					openGraph={{
+						title: data?.article.attributes.seo.metaTitle,
+						description: data.article.attributes.seo.metaDescription,
+						url: `${process.env.SITE_URL}/${data.article.attributes.url}`,
+						type: 'article',
+						article: {
+							publishedTime: data.article.attributes.updatedAt,
+							authors: [
+								`${process.env.NEXT_PUBLIC_API_URL}/authors/${data.article.attributes.author.data.attributes.url}`,
+							],
 						},
-					],
-				}}
-      />
-		)}
+						images: [
+							{
+								url: data.article.attributes.mainImage.data.attributes.url,
+								alt: data?.article.attributes.seo.metaTitle,
+							},
+						],
+					}}
+				/>
+			)}
 			<Box
 				maxWidth="1216px"
 				margin="0 auto"
@@ -299,6 +301,7 @@ export default function PostPage() {
 									</Flex>
 									<ShareButtons />
 								</Flex>
+								<Comments />
 								<Box
 									padding="5px"
 								>
@@ -588,6 +591,7 @@ export default function PostPage() {
 					</>
 				)}
 			</Box>
+			{data && <BlogLatestPosts item={data.article}/>}
 			<SubscribeBlock />
 		</>
   )
