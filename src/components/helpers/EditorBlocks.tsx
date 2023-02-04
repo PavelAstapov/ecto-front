@@ -16,7 +16,6 @@ import {
   Tbody,
   Th,
   Tr,
-  Tfoot,
   Table,
   As,
 } from "@chakra-ui/react";
@@ -33,7 +32,7 @@ export const Checklist: RenderFn<{
   }) => {
   return (
     <>
-      <Flex rowGap="18px" flexDirection='column'>
+      <Flex mb="32px" rowGap="18px" alignItems="flex-start" flexDirection='column'>
         {data?.items.map((item: any, i: number) => (
             <Checkbox
               _hover={{ cursor: "auto" }}

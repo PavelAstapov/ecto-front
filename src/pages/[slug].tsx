@@ -30,7 +30,6 @@ export default function PostPage() {
 
 	const postsData = async () => {
 		const fetchedData = await getArticleData(router.query.slug as string);
-		console.log(fetchedData);
 		const prevPost = await getPrevArticleData((+fetchedData.article.id - 1).toString());
 		const nextPost = await getPrevArticleData((+fetchedData.article.id + 1).toString());
 
@@ -401,7 +400,7 @@ export default function PostPage() {
 													margin: "0 auto"
 												}}
 												alt={data.article.attributes.author.data.attributes.name}
-												src={data.article.attributes.author.data.attributes.img.data[0].attributes.url}/>
+												src={data.article.attributes.author.data.attributes.img.data.attributes.url}/>
 										</ChakraLink>
 									</Box>
 									<Box

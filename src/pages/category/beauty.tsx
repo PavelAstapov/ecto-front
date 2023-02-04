@@ -53,7 +53,7 @@ export default function PostPage() {
 
 			categorieData();
 		}
-	}, [router.isReady]);
+	}, [router.isReady, router.query.page]);
 
 	useEffect(() => {
 		setIsPrevDisabled(page === 1)
@@ -61,11 +61,19 @@ export default function PostPage() {
 		articlesData && setIsNextDisabled(page === articlesData.articles.meta.pagination.pageCount);
 
 		if(pageUrl !== undefined){
-			router.push({
-				pathname: '/category/beauty',
-				query: { page: page },
-			},
-			);
+			if(page !== 1) {
+				router.push({
+					pathname: '/category/beauty',
+					query: { page: page },
+				});
+			}
+
+			if(page === 1) {
+				router.push({
+					pathname: '/category/beauty',
+					query: {},
+				});
+			}
 		}
 
 	}, [page, articlesData]);

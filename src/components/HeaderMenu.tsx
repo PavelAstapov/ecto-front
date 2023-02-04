@@ -14,7 +14,7 @@ import { HeaderData, HeaderMenuData } from '@/Types/types';
 
 function HeaderMenu() {
   const { isOpen, onToggle } = useDisclosure();
-  const [data, setData] = useState<HeaderData>()
+  const [data, setData] = useState<HeaderMenuData>()
 
   useEffect(() => {
     const menuData = async () => {
@@ -23,11 +23,9 @@ function HeaderMenu() {
     }
 
     menuData()
-
   }, []);
 
   return (
-
     <Box className="nav-wrapper" zIndex="999" position="fixed" backgroundColor="#fff" top="0px" width="100%">
       <Flex
         maxW="1216px"
@@ -67,28 +65,32 @@ function HeaderMenu() {
                 placeholder="Discover news, articles and more." />
             </InputGroup>
           </Flex>
-        <Flex
-          align="center"
-          columnGap="32px"
-          as="nav"
-          display={{ base: "none", lg: 'flex' }}
-        >
-          {data?.map((item: HeaderMenuData) =>
-            <ChakraLink
-              href={item.attributes.url}
-              key={item.id}
-              fontWeight={600}
-              color="#1A202C"
-              _hover={{ color: 'blue.600' }}
-              _last={{ bgColor: "blue.500", color: "#fff", borderRadius: "8px", pt: "8px", pb: "8px", pr: "16px", pl: "16px",  _hover: { background: 'blue.600' } }}
-              as={Link}>
-              {item.attributes.title}
-            </ChakraLink>
+          {data && (
+            <>
+              <Flex
+                align="center"
+                columnGap="32px"
+                as="nav"
+                display={{ base: "none", lg: 'flex' }}
+              >
+                {(data?.menu)?.map((item: HeaderData) =>
+                  <ChakraLink
+                    href={item.path}
+                    key={item.id}
+                    fontWeight={600}
+                    color="#1A202C"
+                    _hover={{ color: 'blue.600' }}
+                    _last={{ bgColor: "blue.500", color: "#fff", borderRadius: "8px", pt: "8px", pb: "8px", pr: "16px", pl: "16px",  _hover: { background: 'blue.600' } }}
+                    as={Link}>
+                    {item.title}
+                  </ChakraLink>
+                )}
+              </Flex>
+              <Collapse in={isOpen} animateOpacity>
+                <MobileNav props={data} />
+              </Collapse>
+            </>
           )}
-        </Flex>
-        <Collapse in={isOpen} animateOpacity>
-          <MobileNav props={data} />
-        </Collapse>
         <IconButton
           onClick={onToggle}
           display={{lg: 'none' }}
@@ -114,7 +116,7 @@ const MobileNav = ({ props }: any) => {
       pb="20px"
       zIndex={999}
     >
-      {props?.map((item: HeaderMenuData) =>
+      {(props?.menu)?.map((item: HeaderData) =>
         <ChakraLink
           as={Link}
           key={item.id}
@@ -125,9 +127,9 @@ const MobileNav = ({ props }: any) => {
           borderBottom="1px solid"
           borderColor='gray.300'
           pb="15px"
-          href={item.attributes.url}
+          href={item.path}
         >
-          {item.attributes.title}
+          {item.title}
         </ChakraLink>
       )}
       <InputGroup width="100%" pl="20px" pr="20px" justifyContent="center">

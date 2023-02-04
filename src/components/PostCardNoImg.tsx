@@ -85,7 +85,7 @@ function PostCardNoImg ({ item, isOnBanner = false }: Props) {
 							<ChakraLink
 								as={Link}
 								_hover={{ color: "blue.500" }}
-								href={item.attributes.author.data.attributes.url}
+								href={`authors/${item.attributes.author.data.attributes.url}`}
 							>
 								{item.attributes.author.data.attributes.name}&nbsp;&nbsp;
 							</ChakraLink>

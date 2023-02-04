@@ -61,11 +61,19 @@ export default function PostPage() {
 		articlesData && setIsNextDisabled(page === articlesData.articles.meta.pagination.pageCount);
 
 		if(pageUrl !== undefined){
-			router.push({
-				pathname: '/category/food-and-wellness',
-				query: { page: page },
-			},
-			);
+			if(page !== 1) {
+				router.push({
+					pathname: '/category/food-and-wellness',
+					query: { page: page },
+				});
+			}
+
+			if(page === 1) {
+				router.push({
+					pathname: '/category/food-and-wellness',
+					query: {},
+				});
+			}
 		}
 
 	}, [page, articlesData]);

@@ -51,11 +51,11 @@ export interface PreviewBlogData {
           name: string
           url: string
           img?: {
-            data?: [{
+            data?: {
               attributes?: {
                 url?: string
               }
-            }]
+            }
           }
         }
       }
@@ -113,11 +113,11 @@ export interface BlogPostsMainData {
           name: string
           url: string
           img: {
-            data: [{
+            data: {
               attributes: {
                 url: string
               }
-            }]
+            }
           }
         }
       }
@@ -137,14 +137,18 @@ export interface AllBlogPostsArray{
 }
 
 export interface HeaderMenuData {
-  attributes: {
-    url: string;
-    title: string;
-  }
-  id: number
+  menu:[{
+    id: number,
+    title: string,
+    path: string,
+  }]
 }
 
-export interface HeaderData extends Array<HeaderMenuData>{}
+export interface HeaderData{
+    id: number,
+    title: string,
+    path: string,
+}
 
 export interface FooterSubMenu {
   id: number,

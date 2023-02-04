@@ -79,12 +79,12 @@ function HorizontalCardImg({item}: Props) {
           align="center"
           spacing="16px"
         >
-          <ChakraLink as={Link} href="#">
+          <ChakraLink as={Link} href={`/authors/${item!.attributes.author.data.attributes.url}`}>
             <Avatar
               width="48px"
               height="48px"
               name={item!.attributes.author.data.attributes.name}
-              src={item!.attributes.author.data.attributes.img.data[0].attributes.url}
+              src={item!.attributes.author.data.attributes.img.data.attributes.url}
             />
           </ChakraLink>
           <Box>
@@ -94,7 +94,7 @@ function HorizontalCardImg({item}: Props) {
               _hover={{ textDecoration: "none", color: "blue.500" }}
               as={Link}
               fontWeight="500"
-              href="#"
+              href={`/authors/${item!.attributes.author.data.attributes.url}`}
             >
               {item!.attributes.author.data.attributes.name}
             </ChakraLink>

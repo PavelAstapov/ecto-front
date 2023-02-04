@@ -20,7 +20,7 @@ interface Props {
 	}
 }
 
-function WellnessPosts({ item }: Props) {
+function BlogLatestPosts({ item }: Props) {
 	const [data, setData] = useState<any>();
 	const [categoryLink, setCategoryLink] = useState<string>('#');
 
@@ -102,4 +102,4 @@ function WellnessPosts({ item }: Props) {
   );
 }
 
-export default WellnessPosts;
+export default BlogLatestPosts;

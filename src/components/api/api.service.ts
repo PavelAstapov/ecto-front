@@ -1,5 +1,6 @@
 import {
 	ARTICLE_DATA,
+	AUTHOR_DATA,
 	BEAUTY_PAGE,
 	FASHION_PAGE,
 	FOOD_PAGE,
@@ -7,6 +8,7 @@ import {
 	GET_FASHION_POSTS,
 	GET_FOOTER_MENU,
 	GET_FOUR_LATESTS_POSTS,
+	GET_HEADER_MENU,
 	GET_LATEST_CATEGORY_POSTS,
 	GET_LIFESTYLE_POSTS,
 	GET_MAIN_BANNER,
@@ -14,6 +16,7 @@ import {
 	GET_PICK_POSTS,
 	GET_TRENDING_POSTS,
 	GET_WELLNESS_POSTS,
+	LATESTS_POSTS_BY_AUTHOR,
 	LATESTS_POSTS_BY_CATEGORY,
 	LATESTS_POSTS_BY_TAG,
 	LIFESTYLE_PAGE,
@@ -22,10 +25,25 @@ import {
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import axios from 'axios';
 
-export const getHeaderMenu = async function getServerSideProps() {
+export const getHeaderMenu2 = async function getServerSideProps() {
   const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/menus/1?populate=*`,);
 
   return data.data.data.attributes.items.data
+}
+
+export const getHeaderMenu = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: GET_HEADER_MENU,
+	})
+
+	return {
+    menu: data.renderNavigation[0].items
+  }
 }
 
 export const getMainBanner = async function getServerSideProps() {
@@ -207,9 +225,11 @@ export const getLatestCategoryData = async function getServerSideProps(params: a
 		cache: new InMemoryCache(),
 	})
 
+	const cleanCategoryString = (params.attributes.category).replace('_and_', ' & ');
+
 	const { data } = await client.query({
 		query: GET_LATEST_CATEGORY_POSTS,
-		variables: { category: params.attributes.category,  id: params.id },
+		variables: { category: cleanCategoryString,  id: params.id },
 	})
 
 	return {
@@ -318,6 +338,38 @@ export const getLatestPostsByCategory = async function getServerSideProps(catego
 	const { data } = await client.query({
 		query: LATESTS_POSTS_BY_CATEGORY,
 		variables: { category: category,  page: page },
+	})
+
+	return {
+		articles: data.articles,
+	}
+}
+
+export const getAuthorData = async function getServerSideProps(params: string) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: AUTHOR_DATA,
+		variables: { slugUrl: params },
+	})
+
+	return {
+		author: data.authors.data[0],
+  }
+}
+
+export const getLatestPostsByAuthor = async function getServerSideProps(author: string, page: number) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: LATESTS_POSTS_BY_AUTHOR,
+		variables: { author: author,  page: page },
 	})
 
 	return {

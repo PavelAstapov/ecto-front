@@ -4,12 +4,10 @@ import {
     Link as ChakraLink,
 		Heading,
 		Flex} from '@chakra-ui/react';
-import Image from 'next/image';
 import Link from 'next/link'
 import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
 import { getLatestFashionPosts } from '../api/api.service';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import HorizontalCardImg from '../HorizontalCardImg';
 import PostCardNoImg from '../PostCardNoImg';
 import VerticalCardImg from '../VerticalCardImg';
 
@@ -46,7 +44,7 @@ function BeautyPosts() {
 				<ChakraLink
 					_hover={{ textDecor: "none" }}
 					as={Link}
-					href="#"
+					href="category/fashion-and-style"
 				>
 					<Heading
 						as="h2"
@@ -58,7 +56,7 @@ function BeautyPosts() {
 				</ChakraLink>
 				<ChakraLink
 					as={Link}
-					href="#"
+					href="category/fashion-and-style"
 					color="blue.600"
 					fontSize="20px"
 					fontWeight="600"
@@ -84,7 +82,7 @@ function BeautyPosts() {
 					<VerticalCardImg key={index} item={item} />
 				)}
 				{data && data?.articles?.slice(3, 6).map((item: BlogPostsMainData, index: number) =>
-					<PostCardNoImg  key={index} item={item} />
+					<PostCardNoImg key={index} item={item} />
 				)}
 				{data && data?.articles?.slice(6, 9).map((item: BlogPostsMainData, index: number) =>
 					<VerticalCardImg key={index} item={item} />

@@ -126,7 +126,12 @@ function ResentPosts() {
 								position="relative"
 								filter="drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.06))"
 							>
-								<Image style={{ objectFit:"cover" }} src={Sponsor} fill alt={'test'}/>
+								<Image
+									style={{ objectFit:"cover" }}
+									src={Sponsor}
+									fill
+									alt={'test'}
+								/>
 							</ChakraLink>
 							<ChakraLink
 								as={Link}

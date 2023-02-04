@@ -61,11 +61,19 @@ export default function PostPage() {
 		articlesData && setIsNextDisabled(page === articlesData.articles.meta.pagination.pageCount);
 
 		if(pageUrl !== undefined){
-			router.push({
-				pathname: '/category/fashion-and-style',
-				query: { page: page },
-			},
-			);
+			if(page !== 1) {
+				router.push({
+					pathname: '/category/fashion-and-style',
+					query: { page: page },
+				});
+			}
+
+			if(page === 1) {
+				router.push({
+					pathname: '/category/fashion-and-style',
+					query: {},
+				});
+			}
 		}
 
 	}, [page, articlesData]);

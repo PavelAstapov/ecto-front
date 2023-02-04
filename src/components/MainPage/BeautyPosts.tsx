@@ -43,7 +43,7 @@ function BeautyPosts() {
 				<ChakraLink
 					_hover={{ textDecor: "none" }}
 					as={Link}
-					href="#"
+					href="category/beauty"
 				>
 					<Heading
 						as="h2"
@@ -55,7 +55,7 @@ function BeautyPosts() {
 				</ChakraLink>
 				<ChakraLink
 					as={Link}
-					href="#"
+					href="category/beauty"
 					color="blue.600"
 					fontSize="20px"
 					fontWeight="600"

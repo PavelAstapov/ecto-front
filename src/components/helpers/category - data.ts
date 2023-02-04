@@ -12,12 +12,12 @@ export const categoryData = [
   {
     img: Fashion,
     title: 'Fashion & Style',
-    url: '/category/fashion-style'
+    url: '/category/fashion-and-style'
   },
   {
     img: Food,
     title: 'Food & Wellness',
-    url: '/category/food-wellness'
+    url: '/category/food-and-wellness'
   },
   {
     img: Lifestyle,

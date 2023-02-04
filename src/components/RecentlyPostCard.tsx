@@ -80,8 +80,8 @@ function RecentlyPostCard ({ item }: Props) {
 						<Avatar
 							width="48px"
 							height="48px"
-							name='Dan Abrahmov'
-							src={item!.attributes.author.data.attributes.img.data[0].attributes.url}
+							name={item!.attributes.author.data.attributes.name}
+							src={item!.attributes.author.data.attributes.img.data.attributes.url}
 						/>
 					</ChakraLink>
 					<Box>
@@ -91,7 +91,7 @@ function RecentlyPostCard ({ item }: Props) {
 							fontSize="14px"
 							color="gray.800"
 							as={Link}
-							href="#"
+							href={`/authors/${item!.attributes.author.data.attributes.url}`}
 							_hover={{ textDecoration: "none", color: "blue.500" }}>
 							<Text>
 								{item!.attributes.author.data.attributes.name}

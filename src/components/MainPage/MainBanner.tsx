@@ -13,7 +13,6 @@ import "swiper/css";
 import Link from 'next/link';
 import Image from 'next/image'
 import { getMainBanner } from '../api/api.service';
-import { Skeleton } from '@chakra-ui/react'
 
 function MainBanner() {
 	const [isMobile, setIsMobile] = useState<Boolean>();
@@ -67,6 +66,7 @@ function MainBanner() {
 								position="relative">
 								<Image
 									fill
+									priority
 									placeholder="blur"
 									sizes="(max-width: 768px) 100vw, 100vw"
 									blurDataURL={item?.attributes?.mainImage.data.attributes.url}

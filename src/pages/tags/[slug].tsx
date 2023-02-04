@@ -53,7 +53,7 @@ export default function PostPage() {
 
 			tagData();
 		}
-	}, [router.query.slug]);
+	}, [router.query.slug, router.query.page]);
 
 	useEffect(() => {
 		setIsPrevDisabled(page === 1)
@@ -61,16 +61,30 @@ export default function PostPage() {
 		articlesData && setIsNextDisabled(page === articlesData.articles.meta.pagination.pageCount);
 
 		if(pageUrl !== undefined){
-			router.push({
-				pathname: `/tags/[slug]`,
-				query: {
-					pageUrl,
-					page
-				}
-			},
-				`/tags/${pageUrl}?page=${page}`,
-				{shallow: true}
-			);
+			if(page !== 1) {
+				router.push({
+					pathname: `/tags/[slug]`,
+					query: {
+						pageUrl,
+						page
+					}
+				},
+					`/tags/${pageUrl}?page=${page}`,
+					{shallow: true}
+				);
+			}
+
+			if(page === 1) {
+				router.push({
+					pathname: `/tags/[slug]`,
+					query: {
+						pageUrl
+					}
+				},
+					`/tags/${pageUrl}`,
+					{shallow: true}
+				);
+			}
 		}
 	}, [page, articlesData]);
 
