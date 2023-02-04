@@ -39,7 +39,6 @@ function WellnessPosts({ item }: Props) {
 		setCategoryLink(tagData.categoryLink);
 	}, [data])
 
-
   return (
 		<Box
 			as="section"

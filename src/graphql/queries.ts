@@ -456,7 +456,7 @@ export const GET_NEXT_POST = gql`
 
 export const GET_LATEST_CATEGORY_POSTS = gql`
 query GET_LATEST_CATEGORY_POSTS ($category: String!, $id: ID!) {
-	articles(filters: { category: {eq: $category}, id: {ne: $id} }, sort: "id:desc", pagination: { start: 0, limit: 4 })  {
+	articles(filters: {category: {eq: $category}, id: {ne: $id} }, sort: "id:desc", pagination: { start: 0, limit: 4 })  {
     data {
       id
       attributes {
@@ -564,4 +564,130 @@ export const LATESTS_POSTS_BY_TAG = gql`
     }
 	}
 }
+`
+
+export const BEAUTY_PAGE = gql`
+  query BEAUTY_PAGE {
+    beauty {
+      data {
+        attributes {
+          title
+          description
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
+        }
+      }
+    }
+  }
+`
+
+export const LIFESTYLE_PAGE = gql`
+  query LIFESTYLE_PAGE {
+    lifestyle {
+      data {
+        attributes {
+          title
+          description
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
+        }
+      }
+    }
+  }
+`
+
+export const FASHION_PAGE = gql`
+  query FASHION_PAGE {
+    fashionAndStyle {
+      data {
+        attributes {
+          title
+          description
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
+        }
+      }
+    }
+  }
+`
+
+export const FOOD_PAGE = gql`
+  query FOOD_PAGE {
+    foodAndWellness {
+      data {
+        attributes {
+          title
+          description
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
+        }
+      }
+    }
+  }
+`
+
+export const LATESTS_POSTS_BY_CATEGORY = gql`
+  query LATESTS_POSTS_BY_CATEGORY ($category: String!, $page: Int!) {
+    articles (filters: {category: {contains: $category}}, pagination: {page: $page, pageSize: 6}, sort: "id:desc")  {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          readingTime
+          previewText
+          tags {
+            data {
+              attributes {
+                tag
+              }
+            }
+          }
+          author {
+            data {
+              attributes {
+                name
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+      meta {
+        pagination {
+          pageSize
+          pageCount
+          page
+          total
+        }
+      }
+    }
+  }
 `

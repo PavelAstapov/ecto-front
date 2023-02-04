@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { getLatestPostsByTag, getTagData } from "@/components/api/api.service";
+import { getFashionPage, getLatestPostsByCategory } from "@/components/api/api.service";
 import { useRouter } from "next/router";
 import { Skeleton } from '@chakra-ui/react';
 import { NextSeo } from "next-seo";
@@ -21,17 +21,17 @@ export default function PostPage() {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const router = useRouter();
 
-	const tagData = async () => {
-		const fetchedData = await getTagData(router.query.slug as string);
+	const categorieData = async () => {
+		const fetchedData = await getFashionPage();
 
 		setData(fetchedData);
-		setPageUrl(fetchedData.tag.attributes.url);
+		setPageUrl('fashion-and-style');
 		setIsLoading(false);
 	}
 
 	const updateAticlesList = async () => {
 		try {
-			const fetchedData = await getLatestPostsByTag(router.query.slug as string, page!);
+			const fetchedData = await getLatestPostsByCategory('Fashion & Style', page!);
 
 			if(!(fetchedData.articles.data).length){
 				await router.push('/404');
@@ -51,9 +51,9 @@ export default function PostPage() {
 		if (router.isReady) {
 			setPage(+(router.query.page as unknown as number) || 1);
 
-			tagData();
+			categorieData();
 		}
-	}, [router.query.slug]);
+	}, [router.isReady]);
 
 	useEffect(() => {
 		setIsPrevDisabled(page === 1)
@@ -62,16 +62,12 @@ export default function PostPage() {
 
 		if(pageUrl !== undefined){
 			router.push({
-				pathname: `/tags/[slug]`,
-				query: {
-					pageUrl,
-					page
-				}
+				pathname: '/category/fashion-and-style',
+				query: { page: page },
 			},
-				`/tags/${pageUrl}?page=${page}`,
-				{shallow: true}
 			);
 		}
+
 	}, [page, articlesData]);
 
 	const handelClick = useEffect(() => {
@@ -93,9 +89,9 @@ export default function PostPage() {
 		<>
 			{data && (
 				<NextSeo
-					title={data?.tag.attributes.seo.metaTitle}
-					description={data?.tag.attributes.seo.metaDescription}
-					canonical={data?.tag.attributes.seo.canonicalURL}
+					title={data?.category.attributes.seo.metaTitle}
+					description={data?.category.attributes.seo.metaDescription}
+					canonical={data?.category.attributes.seo.canonicalURL}
 				/>
 			)}
 			<Box
@@ -114,7 +110,7 @@ export default function PostPage() {
 							fontWeight="800"
 							position="relative"
 						>
-							{data.tag.attributes.tag}
+							{data.category.attributes.title}
 							<Text
 								as="span"
 								bgColor="blue.500"
@@ -139,7 +135,7 @@ export default function PostPage() {
 							fontSize="20px"
 							lineHeight="28px"
 						>
-							{data.tag.attributes.description}
+							{data.category.attributes.description}
 						</Text>
 					</>
 				)}

@@ -68,7 +68,6 @@ function MainBanner() {
 								<Image
 									fill
 									placeholder="blur"
-									priority={true}
 									sizes="(max-width: 768px) 100vw, 100vw"
 									blurDataURL={item?.attributes?.mainImage.data.attributes.url}
 									style={{ objectFit:"cover" }}
@@ -121,7 +120,7 @@ function MainBanner() {
 				>
 					<Box display={{ base: "none", md: 'flex' }} flexDirection="column" rowGap="16px">
 						{data && (data?.banners.map(( item: MainBanner, index: number ) =>
-							<div key={index} className={index === 0 ? "show" : ""}>
+							<Box key={index} className={index === 0 ? "show" : ""}>
 								<PostCardNoImg isOnBanner item={item} />
 								<Box
 									width="100%"
@@ -160,6 +159,7 @@ function MainBanner() {
 										<Tags data={item}/>
 										<Heading
 											as="h1"
+											maxWidth="800px"
 											fontSize={{ base: "36px", md: '45px' , xl: '60px' }}
 											color="#fff"
 											width="100%"
@@ -168,7 +168,7 @@ function MainBanner() {
 										</Heading>
 									</Flex>
 								</Box>
-							</div>
+							</Box>
 						))}
 					</Box>
 				</Box>

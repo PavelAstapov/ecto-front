@@ -30,6 +30,7 @@ export default function PostPage() {
 
 	const postsData = async () => {
 		const fetchedData = await getArticleData(router.query.slug as string);
+		console.log(fetchedData);
 		const prevPost = await getPrevArticleData((+fetchedData.article.id - 1).toString());
 		const nextPost = await getPrevArticleData((+fetchedData.article.id + 1).toString());
 

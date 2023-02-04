@@ -56,9 +56,9 @@ function Comments(){
         mt="16px"
       >
         <Text
-          font-weight= "500"
-          font-size="16px"
-          line-height="24px"
+          fontWeight= "500"
+          fontSize="16px"
+          lineHeight="24px"
           color="blue.500"
           mb="16px"
         >

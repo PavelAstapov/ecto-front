@@ -1,5 +1,8 @@
 import {
 	ARTICLE_DATA,
+	BEAUTY_PAGE,
+	FASHION_PAGE,
+	FOOD_PAGE,
 	GET_BEAUTY_POSTS,
 	GET_FASHION_POSTS,
 	GET_FOOTER_MENU,
@@ -11,7 +14,9 @@ import {
 	GET_PICK_POSTS,
 	GET_TRENDING_POSTS,
 	GET_WELLNESS_POSTS,
+	LATESTS_POSTS_BY_CATEGORY,
 	LATESTS_POSTS_BY_TAG,
+	LIFESTYLE_PAGE,
 	TAG_DATA
 } from '@/graphql/queries';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
@@ -158,7 +163,7 @@ export const getTrendingPosts = async function getServerSideProps() {
   }
 }
 
-export const getArticleData = async function getServerSideProps(params: string ) {
+export const getArticleData = async function getServerSideProps(params: string) {
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
 		cache: new InMemoryCache(),
@@ -168,6 +173,12 @@ export const getArticleData = async function getServerSideProps(params: string )
 		query: ARTICLE_DATA,
 		variables: { slugUrl: params },
 	})
+
+	if (!Array.from(data.articles.data).length) {
+    return {
+      notFound: true,
+    };
+  }
 
 	return {
 		article: data.articles.data[0],
@@ -206,7 +217,7 @@ export const getLatestCategoryData = async function getServerSideProps(params: a
 	}
 }
 
-export const getTagData = async function getServerSideProps(params: string ) {
+export const getTagData = async function getServerSideProps(params: string) {
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
 		cache: new InMemoryCache(),
@@ -235,5 +246,81 @@ export const getLatestPostsByTag = async function getServerSideProps(tag: string
 
 	return {
 		articles: data.articles
+	}
+}
+
+export const getBeautyPage = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: BEAUTY_PAGE,
+	})
+
+	return {
+		category: data.beauty.data,
+  }
+}
+
+export const getLifeStylePage = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: LIFESTYLE_PAGE,
+	})
+
+	return {
+		category: data.lifestyle.data,
+  }
+}
+
+export const getFashionPage = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: FASHION_PAGE,
+	})
+
+	return {
+		category: data.fashionAndStyle.data,
+  }
+}
+
+export const getFoodPage = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: FOOD_PAGE,
+	})
+
+	return {
+		category: data.foodAndWellness.data,
+  }
+}
+
+export const getLatestPostsByCategory = async function getServerSideProps(category: string, page: number) {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: LATESTS_POSTS_BY_CATEGORY,
+		variables: { category: category,  page: page },
+	})
+
+	return {
+		articles: data.articles,
 	}
 }

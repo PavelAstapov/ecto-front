@@ -141,6 +141,7 @@ export const ImageBlock: RenderFn<{
             placeholder="blur"
             blurDataURL={data.file.formats.medium.url}
             priority={false}
+            quality={90}
             sizes="(max-width: 768px) 90vw, 1200px"
             style={{ objectFit: "cover" }}
             fill
