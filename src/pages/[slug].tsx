@@ -273,6 +273,8 @@ export default function PostPage() {
 									<Flex
 										columnGap="4px"
 										alignItems="center"
+										flexWrap="wrap"
+										rowGap="20px"
 									>
 										<Text
 											marginRight="8px"

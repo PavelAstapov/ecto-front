@@ -29,7 +29,7 @@ function PostCardNoImg ({ item, isOnBanner = false }: Props) {
 			boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);"
 			top="0"
 			_hover={{ textDecoration: "none", boxShadow: "0px 2px 4px rgb(46 41 51 / 8%), 0px 5px 10px rgb(71 63 79 / 16%)", top: "-3px" }}
-			width={{ base: "100%", md: '384px' } }
+			width={{ base: "100%", lg: '384px' } }
 		>
 			<Stack
 				paddingX="24px"

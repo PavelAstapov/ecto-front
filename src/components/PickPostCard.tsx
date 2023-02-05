@@ -33,7 +33,8 @@ function PickPostCard({item}: Props) {
         style={{ objectFit:"cover" }}
         sizes="(max-width: 767px) 300px, 350px"
         fill
-        src={item!.attributes.mainImage.data.attributes.url} alt={item!.attributes.title}/>
+        src={item!.attributes.mainImage.data.attributes.url}
+        alt={item!.attributes.title}/>
       <Box
           position="absolute"
           width="100%"

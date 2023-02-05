@@ -68,7 +68,7 @@ function MainBanner() {
 									fill
 									priority
 									placeholder="blur"
-									sizes="(max-width: 768px) 100vw, 100vw"
+									sizes="(max-width: 768px) 400px, 400px"
 									blurDataURL={item?.attributes?.mainImage.data.attributes.url}
 									style={{ objectFit:"cover" }}
 									src={item?.attributes?.mainImage.data.attributes.url}

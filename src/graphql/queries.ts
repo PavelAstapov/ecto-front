@@ -812,3 +812,36 @@ export const LATESTS_POSTS_BY_AUTHOR = gql`
 	}
 }
 `
+
+export const GET_PRIVACY_NOTICE = gql`
+  query GET_PRIVACY_NOTICE {
+    privacyNotice {
+      data {
+        attributes {
+          title
+          content
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
+        }
+      }
+    }
+  }
+`
+
+export const GET_COOKIES = gql`
+  query GET_COOKIES {
+    cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+  }
+`

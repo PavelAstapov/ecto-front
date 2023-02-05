@@ -174,6 +174,16 @@ export interface MainBanners{
   banners: Array<MainBanner>;
 }
 
+export interface StaticPage{
+  title: string,
+  content: string,
+  seo: {
+    metaTitle: string,
+    metaDescription: string,
+    canonicalURL: string,
+  }
+}
+
 export interface SeoData {
   seo: {
     metaTitle: string

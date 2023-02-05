@@ -5,6 +5,7 @@ import {
 	FASHION_PAGE,
 	FOOD_PAGE,
 	GET_BEAUTY_POSTS,
+	GET_COOKIES,
 	GET_FASHION_POSTS,
 	GET_FOOTER_MENU,
 	GET_FOUR_LATESTS_POSTS,
@@ -14,6 +15,7 @@ import {
 	GET_MAIN_BANNER,
 	GET_NEXT_POST,
 	GET_PICK_POSTS,
+	GET_PRIVACY_NOTICE,
 	GET_TRENDING_POSTS,
 	GET_WELLNESS_POSTS,
 	LATESTS_POSTS_BY_AUTHOR,
@@ -23,13 +25,6 @@ import {
 	TAG_DATA
 } from '@/graphql/queries';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import axios from 'axios';
-
-export const getHeaderMenu2 = async function getServerSideProps() {
-  const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/menus/1?populate=*`,);
-
-  return data.data.data.attributes.items.data
-}
 
 export const getHeaderMenu = async function getServerSideProps() {
   const client = new ApolloClient({
@@ -374,5 +369,35 @@ export const getLatestPostsByAuthor = async function getServerSideProps(author: 
 
 	return {
 		articles: data.articles,
+	}
+}
+
+export const getPrivacyNotice = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: GET_PRIVACY_NOTICE,
+	})
+
+	return {
+		data: data.privacyNotice.data.attributes,
+	}
+}
+
+export const getCookies = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: GET_COOKIES,
+	})
+
+	return {
+		cookies: data.cookies.data,
 	}
 }
