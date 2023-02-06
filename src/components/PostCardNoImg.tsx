@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack, Text, Link as ChakraLink, Box, Flex } from '@chakra-ui/react'
 import Link from 'next/link';
-import { PreviewBlogData } from '@/types/types';
+import { PreviewBlogData } from '@/Types/types';
 import { formatDate } from './helpers/format-date';
 
 interface Props {

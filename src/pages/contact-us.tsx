@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getContactUs } from "@/components/api/api.service";
-import { ContactUs } from "@/types/types";
+import { ContactUs } from "@/Types/types";
 import {
   Box,
   Button,

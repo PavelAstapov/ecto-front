@@ -1,7 +1,7 @@
 import { Stack, Text, Avatar, Link as ChakraLink, Box } from '@chakra-ui/react'
 import Link from 'next/link';
 import Image from 'next/image'
-import { BlogPostsMainData } from '@/types/types';
+import { BlogPostsMainData } from '@/Types/types';
 import { formatDate } from './helpers/format-date';
 
 interface Props {

@@ -10,7 +10,7 @@ import {
   CodeBlock,
   TableBlock
 } from "@/components/helpers/EditorBlocks";
-import { StaticPage } from "@/types/types";
+import { StaticPage } from "@/Types/types";
 import { Box, Heading } from "@chakra-ui/react";
 import Blocks from "editorjs-blocks-react-renderer";
 import { NextSeo } from "next-seo";
