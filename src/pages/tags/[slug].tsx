@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { Skeleton } from '@chakra-ui/react';
 import { NextSeo } from "next-seo";
 import VerticalCardImg from "@/components/VerticalCardImg";
-import { BlogPostsMainData } from "@/Types/types";
+import { BlogPostsMainData } from "@/types/types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 export default function PostPage() {

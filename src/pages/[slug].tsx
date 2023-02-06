@@ -303,7 +303,7 @@ export default function PostPage() {
 									</Flex>
 									<ShareButtons />
 								</Flex>
-								<Comments />
+								<Comments slug={data.article.id} />
 								<Box
 									padding="5px"
 								>

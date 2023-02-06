@@ -831,6 +831,29 @@ export const GET_PRIVACY_NOTICE = gql`
   }
 `
 
+export const GET_CONTACT_US = gql`
+  query GET_CONTACT_US {
+    contactUs {
+      data {
+        attributes{
+          title
+          description
+          ourCommitment
+          artDescription
+          artPhone
+          artEmail
+          artAddress
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
+        }
+      }
+    }
+  }
+`
+
 export const GET_COOKIES = gql`
   query GET_COOKIES {
     cookies {

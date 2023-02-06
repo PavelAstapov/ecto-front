@@ -176,12 +176,22 @@ export interface MainBanners{
 
 export interface StaticPage{
   title: string,
-  content: string,
+  content?: string,
   seo: {
     metaTitle: string,
     metaDescription: string,
     canonicalURL: string,
   }
+}
+
+export interface ContactUs extends StaticPage{
+  title: string,
+  description: string,
+  ourCommitment: string,
+  artDescription: string,
+  artPhone: string,
+  artEmail: string,
+  artAddress: string,
 }
 
 export interface SeoData {

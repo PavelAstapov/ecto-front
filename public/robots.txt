@@ -1,3 +1,6 @@
-# Allow all crawlers
+Sitemap: https://ecto-front.vercel.app/sitemap.xml
+
 User-agent: *
-Allow: /
+Allow: /*
+
+Disallow: /api/*

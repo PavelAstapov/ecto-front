@@ -3,7 +3,7 @@ import {
     Box,
 		Heading,
 		Flex} from '@chakra-ui/react';
-import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
+import { AllBlogPostsArray, BlogPostsMainData } from '@/types/types';
 import { getTrendingPosts } from '../api/api.service';
 import BigHorizontalCardImg from '../BigHorizontalCardImg';
 

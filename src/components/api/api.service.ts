@@ -5,6 +5,7 @@ import {
 	FASHION_PAGE,
 	FOOD_PAGE,
 	GET_BEAUTY_POSTS,
+	GET_CONTACT_US,
 	GET_COOKIES,
 	GET_FASHION_POSTS,
 	GET_FOOTER_MENU,
@@ -25,6 +26,7 @@ import {
 	TAG_DATA
 } from '@/graphql/queries';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+import axios from 'axios';
 
 export const getHeaderMenu = async function getServerSideProps() {
   const client = new ApolloClient({
@@ -400,4 +402,25 @@ export const getCookies = async function getServerSideProps() {
 	return {
 		cookies: data.cookies.data,
 	}
+}
+
+export const getContactUs = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: GET_CONTACT_US,
+	})
+
+	return {
+		data: data.contactUs.data.attributes,
+	}
+}
+
+export const getComments = async function getServerSideProps(url: string) {
+  const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/api::article.article:${url}?filters[approvalStatus][$eq]=APPROVED`);
+
+	return data;
 }

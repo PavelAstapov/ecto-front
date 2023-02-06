@@ -5,7 +5,6 @@ import {
 		Text,
 		Flex,
 		FormControl,
-		FormLabel,
 		Input,
 		FormErrorMessage,
 		Button,
@@ -17,7 +16,7 @@ import { Spinner } from '@chakra-ui/react'
 function SubscribeBlock() {
 	const [isError, setIsError] = useState(false);
 	const [isLoading, setIsLoading ] = useState(false);
-	const toast = useToast()
+	const toast = useToast();
 
 	const handeSubscribeSubmit = async (e: any) => {
 		e.preventDefault();
@@ -33,7 +32,8 @@ function SubscribeBlock() {
 					duration: 3000,
 					isClosable: true,
 				})
-				setIsLoading(false)
+				setIsLoading(false);
+				e.target.reset();
 			} catch (error) {
 				setIsLoading(false)
 				toast({
