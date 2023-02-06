@@ -7,7 +7,7 @@ import {
 		Flex} from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link'
-import {AllBlogPostsArray, BlogPostsMainData, PreviewBlogData } from '@/types/types';
+import {AllBlogPostsArray, BlogPostsMainData, PreviewBlogData } from '../../types/types';
 import CategoryListItem from '../CategoryListItem';
 import RecentlyPostCard from '../RecentlyPostCard';
 import Sponsor from 'src/img/sponsor.jpg'

@@ -1,4 +1,4 @@
-import { BlogPostsMainData } from '@/types/types';
+import { BlogPostsMainData } from '../types/types';
 import { Stack, Text, Avatar, Link as ChakraLink, Box, Flex } from '@chakra-ui/react'
 import Link from 'next/link'
 import Image from 'next/image'

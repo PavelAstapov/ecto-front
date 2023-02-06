@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Logo from 'src/img/logo.svg';
 import Link from 'next/link'
 import { getFooterMenu } from './api/api.service';
-import { FooterData, FooterMenuData, FooterSubMenu } from '@/types/types';
+import { FooterData, FooterMenuData, FooterSubMenu } from '../types/types';
 
 function Footer() {
   const [data, setData] = useState<FooterData>()

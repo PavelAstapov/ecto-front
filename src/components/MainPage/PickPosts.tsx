@@ -3,7 +3,7 @@ import {
     Box,
 		Heading,
 		Flex} from '@chakra-ui/react';
-import { AllBlogPostsArray, BlogPostsMainData } from '@/types/types';
+import { AllBlogPostsArray, BlogPostsMainData } from '../../types/types';
 import { getPickPosts } from '../api/api.service';
 import PickPostCard from '../PickPostCard';
 

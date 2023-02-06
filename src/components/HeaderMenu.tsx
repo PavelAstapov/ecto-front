@@ -23,7 +23,7 @@ import {
   SearchIcon,
 } from '@chakra-ui/icons';
 import { getCookies, getHeaderMenu } from './api/api.service';
-import { HeaderData, HeaderMenuData } from '@/types/types';
+import { HeaderData, HeaderMenuData } from '../types/types';
 import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 
