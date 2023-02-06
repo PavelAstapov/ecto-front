@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { formatDate } from "@/components/helpers/format-date";
 import Blocks from 'editorjs-blocks-react-renderer';
 import SubscribeBlock from "@/components/SubscribeBlock";
-import { getArticleData, getLatestCategoryData, getPrevArticleData } from "@/components/api/api.service";
+import { getArticleData, getPrevArticleData } from "@/components/api/api.service";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Skeleton } from '@chakra-ui/react';
