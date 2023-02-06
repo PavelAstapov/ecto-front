@@ -5,7 +5,7 @@ import {
 		Heading,
 		Flex} from '@chakra-ui/react';
 import Link from 'next/link'
-import { AllBlogPostsArray, BlogPostsMainData } from '../../types/types';
+import { AllBlogPostsArray, BlogPostsMainData } from '@/types/types';
 import { getLatestBeautyPosts } from '../api/api.service';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import HorizontalCardImg from '../HorizontalCardImg';

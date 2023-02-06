@@ -7,7 +7,7 @@ import {
 		Flex} from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PostCardNoImg from '../PostCardNoImg';
-import { MainBanners, MainBanner } from '../../types/types';
+import { MainBanners, MainBanner } from '@/types/types';
 import { GetTagInfo } from '../helpers/teg-helper';
 import "swiper/css";
 import Link from 'next/link';
