@@ -15,12 +15,12 @@ import { getFourLatestsPosts } from '../api/api.service';
 import { Skeleton } from '@chakra-ui/react';
 import { categoryData } from '../helpers/category - data';
 
-interface SponsorData {
-	img: string
-	link: string
+interface Props {
+	img?: string
+	link?: string
 }
 
-function ResentPosts() {
+function ResentPosts({ img, link }: Props) {
 	const [data, setData] = useState<AllBlogPostsArray>();
 	const [isFetching, setIsFetching] = useState<boolean>(true);
 
@@ -112,40 +112,47 @@ function ResentPosts() {
 								)}
 							</>
 						</Box>
-						<Box>
-							<Text fontWeight="700" fontSize="18px">Our Sponsor</Text>
-							<ChakraLink
-								as={Link}
-								href="#"
-								display="block"
-								width="320px"
-								height="248px"
-								overflow="hidden"
-								borderRadius="8px"
-								mt="12px"
-								position="relative"
-								filter="drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.06))"
-							>
-								<Image
-									style={{ objectFit:"cover" }}
-									src={Sponsor}
-									fill
-									alt={'test'}
-								/>
-							</ChakraLink>
-							<ChakraLink
-								as={Link}
-								href="#"
-								fontSize="12px"
-								display="block"
-								textAlign="center"
-								color="#718096"
-								mt="8px"
-								_hover={{ color: "#323232", textDecoration: "none" }}
-							>
-									ADVERTISE WITH US
-							</ChakraLink>
-						</Box>
+						{link && (
+							<Box>
+								<Text fontWeight="700" fontSize="18px">Our Sponsor</Text>
+								<ChakraLink
+									as={Link}
+									href={link}
+									target="_blank"
+									display="block"
+									width="320px"
+									height="248px"
+									overflow="hidden"
+									borderRadius="8px"
+									mt="12px"
+									position="relative"
+									filter="drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.06))"
+								>
+									<Image
+										src={img}
+										style={{ objectFit:"cover" }}
+										placeholder="blur"
+										blurDataURL={img}
+										sizes="(max-width: 767px) 450px, 500px"
+										fill
+										alt={'test'}
+									/>
+								</ChakraLink>
+								<ChakraLink
+									as={Link}
+									href="/advertisement"
+									fontSize="12px"
+									display="block"
+									textAlign="center"
+									color="#718096"
+									mt="8px"
+									_hover={{ color: "#323232", textDecoration: "none" }}
+								>
+										ADVERTISE WITH US
+								</ChakraLink>
+							</Box>
+						)}
+
 					</Flex>
 				</Flex>
 		</Box>

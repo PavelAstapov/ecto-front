@@ -3,7 +3,8 @@ import {
     Box,
     Link as ChakraLink,
 		Heading,
-		Flex} from '@chakra-ui/react';
+		Flex
+	} from '@chakra-ui/react';
 import Link from 'next/link'
 import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
 import { getLatestWellnessPosts } from '../api/api.service';

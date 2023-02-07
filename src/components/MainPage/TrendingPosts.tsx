@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
     Box,
 		Heading,
-		Flex} from '@chakra-ui/react';
+		Flex
+	} from '@chakra-ui/react';
 import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
 import { getTrendingPosts } from '../api/api.service';
 import BigHorizontalCardImg from '../BigHorizontalCardImg';

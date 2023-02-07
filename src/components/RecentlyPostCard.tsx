@@ -2,7 +2,6 @@ import React from 'react';
 import { Stack, Text, Link as ChakraLink, Box, Flex, Badge, Avatar, Tag } from '@chakra-ui/react'
 import Link from 'next/link';
 import { BlogPostsMainData } from '@/Types/types';
-import dayjs from 'dayjs';
 import { GetTagInfo } from './helpers/teg-helper';
 import { formatDate } from './helpers/format-date';
 

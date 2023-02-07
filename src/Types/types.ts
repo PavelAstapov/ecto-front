@@ -170,10 +170,6 @@ export interface FooterMenuData {
   items: FooterSubMenu[];
 }
 
-export interface MainBanners{
-  banners: Array<MainBanner>;
-}
-
 export interface StaticPage{
   title: string,
   content?: string,

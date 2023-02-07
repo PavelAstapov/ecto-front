@@ -7,25 +7,18 @@ import {
 		Flex} from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PostCardNoImg from '../PostCardNoImg';
-import { MainBanners, MainBanner } from '@/Types/types';
+import { MainBanner } from '@/Types/types';
 import { GetTagInfo } from '../helpers/teg-helper';
 import "swiper/css";
 import Link from 'next/link';
 import Image from 'next/image'
-import { getMainBanner } from '../api/api.service';
 
-function MainBanner() {
+interface Props {
+	data: MainBanner[];
+}
+
+function MainBanner({ data }: Props ) {
 	const [isMobile, setIsMobile] = useState<Boolean>();
-	const [data, setData] = useState<MainBanners>();
-
-	useEffect(() => {
-		const bannerData = async () => {
-			const fetchedData = await getMainBanner();
-			setData(fetchedData);
-		}
-
-	  bannerData();
-	}, [])
 
 	useEffect(() => {
 		setIsMobile((window.innerWidth <= 830)? true : false)
@@ -53,7 +46,7 @@ function MainBanner() {
 			position="relative">
 			{isMobile && (
 				<Swiper className="mySwiper">
-					{data && data?.banners.map(( item: MainBanner, index: number ) =>
+					{data && data?.map(( item: MainBanner, index: number ) =>
 						<SwiperSlide key={index}>
 							<ChakraLink
 								as={Link}
@@ -119,7 +112,7 @@ function MainBanner() {
 					width="90%"
 				>
 					<Box display={{ base: "none", md: 'flex' }} flexDirection="column" rowGap="16px">
-						{data && (data?.banners.map(( item: MainBanner, index: number ) =>
+						{data && (data?.map(( item: MainBanner, index: number ) =>
 							<Box key={index} className={index === 0 ? "show" : ""}>
 								<PostCardNoImg isOnBanner item={item} />
 								<Box

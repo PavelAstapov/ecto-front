@@ -4,6 +4,7 @@ import {
 	BEAUTY_PAGE,
 	FASHION_PAGE,
 	FOOD_PAGE,
+	GET_ADVERTISEMENT,
 	GET_BEAUTY_POSTS,
 	GET_CONTACT_US,
 	GET_COOKIES,
@@ -11,9 +12,9 @@ import {
 	GET_FOOTER_MENU,
 	GET_FOUR_LATESTS_POSTS,
 	GET_HEADER_MENU,
+	GET_HOME_PAGE,
 	GET_LATEST_CATEGORY_POSTS,
 	GET_LIFESTYLE_POSTS,
-	GET_MAIN_BANNER,
 	GET_NEXT_POST,
 	GET_PICK_POSTS,
 	GET_PRIVACY_NOTICE,
@@ -27,6 +28,7 @@ import {
 } from '@/graphql/queries';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import axios from 'axios';
+
 
 export const getHeaderMenu = async function getServerSideProps() {
   const client = new ApolloClient({
@@ -43,18 +45,18 @@ export const getHeaderMenu = async function getServerSideProps() {
   }
 }
 
-export const getMainBanner = async function getServerSideProps() {
+export const getHomePage = async function getServerSideProps() {
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
 		cache: new InMemoryCache(),
 	})
 
 	const { data } = await client.query({
-		query: GET_MAIN_BANNER,
+		query: GET_HOME_PAGE,
 	})
 
 	return {
-    banners: data.homepage.data.attributes.articles.data
+    data: data.homepage.data.attributes
   }
 }
 
@@ -423,4 +425,19 @@ export const getComments = async function getServerSideProps(url: string) {
   const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/api::article.article:${url}?filters[approvalStatus][$eq]=APPROVED`);
 
 	return data;
+}
+
+export const getAdvertisement = async function getServerSideProps() {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: GET_ADVERTISEMENT,
+	})
+
+	return {
+		data: data.advertisement.data.attributes,
+	}
 }

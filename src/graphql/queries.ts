@@ -1,87 +1,87 @@
 import { gql } from "@apollo/client";
 
 export const GET_FOUR_LATESTS_POSTS = gql`
-query GET_FOUR_LATESTS_POSTS {
-	articles(sort: "id:desc", pagination: { start: 0, limit: 4 }) {
-    data {
-      id
-      attributes {
-        title
-        url
-        updatedAt
-        category
-        isTrending
-        isTopPick
-        readingTime
-        previewText
-        author {
-          data {
-            attributes {
-               name
-               url
-               img {
-                data {
-                  attributes {
-                    url
+  query GET_FOUR_LATESTS_POSTS {
+    articles(sort: "id:desc", pagination: { start: 0, limit: 4 }) {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
                   }
                 }
               }
             }
           }
-        }
-        mainImage {
-          data {
-            attributes {
-              url
+          mainImage {
+            data {
+              attributes {
+                url
+              }
             }
           }
         }
       }
     }
-	}
-}
+  }
 `
 
 export const GET_PICK_POSTS = gql`
-query GET_PICK_POSTS {
-	articles(filters: { isTopPick: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 4 }) {
-    data {
-      id
-      attributes {
-        title
-        url
-        updatedAt
-        category
-        isTrending
-        isTopPick
-        readingTime
-        previewText
-        author {
-          data {
-            attributes {
-               name
-               url
-               img {
-                data {
-                  attributes {
-                    url
+  query GET_PICK_POSTS {
+    articles(filters: { isTopPick: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 4 }) {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
                   }
                 }
               }
             }
           }
-        }
-        mainImage {
-          data {
-            attributes {
-              url
+          mainImage {
+            data {
+              attributes {
+                url
+              }
             }
           }
         }
       }
     }
-	}
-}
+  }
 `
 
 export const GET_BEAUTY_POSTS = gql`
@@ -253,7 +253,7 @@ export const GET_LIFESTYLE_POSTS = gql`
 `
 
 export const GET_TRENDING_POSTS = gql`
-query {
+query GET_TRENDING_POSTS {
 	articles(filters: { isTrending: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 2 })  {
     data {
       id
@@ -346,12 +346,25 @@ export const GET_FOOTER_MENU = gql`
   }
 `
 
-export const GET_MAIN_BANNER = gql`
-  query GET_MAIN_BANNER {
+export const GET_HOME_PAGE = gql`
+  query GET_HOME_PAGE {
     homepage {
       data {
         id
         attributes {
+          sponsorLink
+          sponsorImg {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
           articles {
             data {
               attributes {
@@ -863,6 +876,24 @@ export const GET_COOKIES = gql`
           description
           host
           duration
+        }
+      }
+    }
+  }
+`
+
+export const GET_ADVERTISEMENT = gql`
+  query GET_ADVERTISEMENT {
+    advertisement {
+      data {
+        attributes {
+          title
+          content
+          seo {
+            metaTitle
+            metaDescription
+            canonicalURL
+          }
         }
       }
     }

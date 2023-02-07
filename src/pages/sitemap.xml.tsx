@@ -4,7 +4,6 @@ import { GetServerSideProps } from "next";
 function Sitemap(){
   return(
     <>
-
     </>
   )
 }
@@ -15,7 +14,6 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     ${data.split('.xsl"?>').pop()}
   `
-
 
   res.setHeader('Content-Type', 'text/xml')
   res.write(sitemap)
