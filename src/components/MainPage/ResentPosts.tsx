@@ -128,15 +128,17 @@ function ResentPosts({ img, link }: Props) {
 									position="relative"
 									filter="drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.06))"
 								>
-									<Image
-										src={img}
-										style={{ objectFit:"cover" }}
-										placeholder="blur"
-										blurDataURL={img}
-										sizes="(max-width: 767px) 450px, 500px"
-										fill
-										alt={'test'}
-									/>
+									{img && (
+										<Image
+											src={img}
+											style={{ objectFit:"cover" }}
+											placeholder="blur"
+											blurDataURL={img}
+											sizes="(max-width: 767px) 450px, 500px"
+											fill
+											alt={'test'}
+										/>
+									)}
 								</ChakraLink>
 								<ChakraLink
 									as={Link}
