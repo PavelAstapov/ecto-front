@@ -21,7 +21,7 @@ function MainBanner({ data }: Props ) {
 	const [isMobile, setIsMobile] = useState<Boolean>();
 
 	useEffect(() => {
-		setIsMobile((window.innerWidth <= 830)? true : false)
+		setIsMobile((window.innerWidth <= 830) ? true : false)
 
 		const bannerCard = document.querySelectorAll(".onBanner");
 

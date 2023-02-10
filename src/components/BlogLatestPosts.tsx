@@ -6,38 +6,23 @@ import {
 		Flex} from '@chakra-ui/react';
 import Link from 'next/link'
 import { BlogPostsMainData } from '@/Types/types';
-import { getLatestCategoryData } from './api/api.service';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import HorizontalCardImg from './HorizontalCardImg';
 import { GetTagInfo } from './helpers/teg-helper';
 
 interface Props {
-	item: {
-		attributes: {
-			category: string
-		}
-		id: string
-	}
+	item: BlogPostsMainData[]
 }
 
 function BlogLatestPosts({ item }: Props) {
-	const [data, setData] = useState<any>();
 	const [categoryLink, setCategoryLink] = useState<string>('#');
 
-	const postsData = async () => {
-		const fetchedData = await getLatestCategoryData(item);
-		setData(fetchedData);
-	}
 
 	useEffect(() => {
-	  postsData();
-	}, [])
-
-	useEffect(() => {
-		const tagData = GetTagInfo(data?.articles[0].attributes.category);
+		const tagData = GetTagInfo(item[0].attributes.category);
 
 		setCategoryLink(tagData.categoryLink);
-	}, [data])
+	}, [item])
 
   return (
 		<Box
@@ -94,7 +79,7 @@ function BlogLatestPosts({ item }: Props) {
 				flexWrap="wrap"
 				justifyContent="flex-start"
 			>
-				{data && data.articles.map(( item: BlogPostsMainData, index: number ) =>
+				{item.map(( item: BlogPostsMainData, index: number ) =>
 					<HorizontalCardImg key={index} item={item} />
 				)}
 			</Flex>

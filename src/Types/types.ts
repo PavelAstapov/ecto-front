@@ -137,17 +137,9 @@ export interface AllBlogPostsArray{
 }
 
 export interface HeaderMenuData {
-  menu:[{
-    id: number,
-    title: string,
-    path: string,
-  }]
-}
-
-export interface HeaderData{
-    id: number,
-    title: string,
-    path: string,
+  id: number,
+  title: string,
+  path: string,
 }
 
 export interface FooterSubMenu {
@@ -157,11 +149,9 @@ export interface FooterSubMenu {
 }
 
 export interface FooterData{
-  menu: [{
-    id: number,
-    title: string,
-    items: FooterSubMenu[],
-  }]
+  id: number,
+  title: string,
+  items: FooterSubMenu[],
 }
 
 export interface FooterMenuData {

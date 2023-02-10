@@ -376,21 +376,6 @@ export const getLatestPostsByAuthor = async function getServerSideProps(author: 
 	}
 }
 
-export const getPrivacyNotice = async function getServerSideProps() {
-  const client = new ApolloClient({
-    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-		cache: new InMemoryCache(),
-	})
-
-	const { data } = await client.query({
-		query: GET_PRIVACY_NOTICE,
-	})
-
-	return {
-		data: data.privacyNotice.data.attributes,
-	}
-}
-
 export const getCookies = async function getServerSideProps() {
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
@@ -406,38 +391,9 @@ export const getCookies = async function getServerSideProps() {
 	}
 }
 
-export const getContactUs = async function getServerSideProps() {
-  const client = new ApolloClient({
-    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-		cache: new InMemoryCache(),
-	})
-
-	const { data } = await client.query({
-		query: GET_CONTACT_US,
-	})
-
-	return {
-		data: data.contactUs.data.attributes,
-	}
-}
 
 export const getComments = async function getServerSideProps(url: string) {
   const data = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/api::article.article:${url}?filters[approvalStatus][$eq]=APPROVED`);
 
 	return data;
-}
-
-export const getAdvertisement = async function getServerSideProps() {
-  const client = new ApolloClient({
-    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-		cache: new InMemoryCache(),
-	})
-
-	const { data } = await client.query({
-		query: GET_ADVERTISEMENT,
-	})
-
-	return {
-		data: data.advertisement.data.attributes,
-	}
 }

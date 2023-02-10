@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Flex,
   Box,
@@ -9,22 +9,13 @@ import {
 import Image from 'next/image';
 import Logo from 'src/img/logo.svg';
 import Link from 'next/link'
-import { getFooterMenu } from './api/api.service';
 import { FooterData, FooterMenuData, FooterSubMenu } from '@/Types/types';
 
-function Footer() {
-  const [data, setData] = useState<FooterData>()
+interface Props {
+  menu: FooterData[];
+}
 
-  useEffect(() => {
-    const menuData = async () => {
-      const fetchedData = await getFooterMenu();
-      setData(fetchedData);
-    }
-
-    menuData()
-
-  }, []);
-
+function Footer({ menu }: Props) {
   return (
     <Box as="footer" backgroundColor="#fff" top="0px" width="100%">
       <Flex
@@ -62,7 +53,7 @@ function Footer() {
           flexDir={{ base: "column", md: "row" }}
           rowGap="40px"
         >
-          {data?.menu.map((item: FooterMenuData, index: number) =>
+          {menu.map((item: FooterMenuData, index: number) =>
             <Stack key={item.id} minW="176px">
               <>
                 <Text mb="24px" fontWeight={700}>{item.title}</Text>

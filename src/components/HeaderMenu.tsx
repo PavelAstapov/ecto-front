@@ -22,30 +22,31 @@ import {
   CloseIcon,
   SearchIcon,
 } from '@chakra-ui/icons';
-import { getCookies, getHeaderMenu } from './api/api.service';
-import { HeaderData, HeaderMenuData } from '@/Types/types';
-import { getCookie, hasCookie, setCookie } from 'cookies-next';
+import { HeaderMenuData } from '@/Types/types';
+import { hasCookie, setCookie } from 'cookies-next';
+import Search from './MainPage/Search';
+// Include only the reset
+import 'instantsearch.css/themes/reset.css';
+// or include the full Satellite theme
+import 'instantsearch.css/themes/satellite.css';
 
 
-function HeaderMenu() {
+interface Props {
+  menu: HeaderMenuData[];
+  cookies: any;
+}
+
+function HeaderMenu({ menu, cookies }: Props) {
   const { isOpen, onToggle } = useDisclosure();
-  const [data, setData] = useState<HeaderMenuData>();
-  const [isCookieBanner, seIsCookieBanner] = useState<boolean>(false)
+  const [isCookieBanner, seIsCookieBanner] = useState<boolean>(false);
 
   useEffect(() => {
-    const menuData = async () => {
-      const fetchedData = await getHeaderMenu();
-      setData(fetchedData);
-    }
-
     if(!hasCookie("notFirstVisit")){
       seIsCookieBanner(true)
     }
 
     const cookiesData = async () => {
-      const cookies = await getCookies();
-
-      cookies.cookies.map((item: any) => {
+      cookies.map((item: any) => {
         if(!hasCookie(`${item.attributes.name}`)) {
           const maxAge = () => {
             if (item.attributes.duration.days * item.attributes.duration.hours * item.attributes.duration.minutes === 0) {
@@ -59,7 +60,6 @@ function HeaderMenu() {
       })
     }
 
-    menuData();
     cookiesData();
   }, []);
 
@@ -130,21 +130,11 @@ function HeaderMenu() {
                   blurDataURL={Logo.src}
                 />
               </Link>
-              <InputGroup width="320px" display={{ base: "none", lg: 'block' }}>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<SearchIcon width="20px" color="gray.400" />}
-                />
-                <Input
-                  type="text"
-                  bgColor='gray.100'
-                  color="blackAlpha.800"
-                  border="none"
-                  _placeholder={{ color: 'gray.400' }}
-                  placeholder="Discover news, articles and more." />
-              </InputGroup>
+              <Box display={{ base: "none", lg:"block" }}>
+                <Search />
+              </Box>
             </Flex>
-            {data && (
+            {menu && (
               <>
                 <Flex
                   align="center"
@@ -152,7 +142,7 @@ function HeaderMenu() {
                   as="nav"
                   display={{ base: "none", lg: 'flex' }}
                 >
-                  {(data?.menu)?.map((item: HeaderData) =>
+                  {menu.map((item: HeaderMenuData) =>
                     <ChakraLink
                       href={item.path}
                       key={item.id}
@@ -166,7 +156,7 @@ function HeaderMenu() {
                   )}
                 </Flex>
                 <Collapse in={isOpen} animateOpacity>
-                  <MobileNav props={data} />
+                  <MobileNav props={menu} />
                 </Collapse>
               </>
             )}
@@ -195,13 +185,15 @@ const MobileNav = ({ props }: any) => {
       top="60px"
       pb="20px"
       zIndex={999}
+      alignItems="center"
     >
-      {(props?.menu)?.map((item: HeaderData) =>
+      {props.map((item: HeaderMenuData) =>
         <ChakraLink
           as={Link}
           key={item.id}
           _hover={{ color: 'blue.600' }}
           pt="10px"
+          width="100%"
           fontWeight="600"
           pl="20px"
           borderBottom="1px solid"
@@ -212,22 +204,7 @@ const MobileNav = ({ props }: any) => {
           {item.title}
         </ChakraLink>
       )}
-      <InputGroup width="100%" pl="20px" pr="20px" justifyContent="center">
-        <InputLeftElement
-          left="20px"
-          pointerEvents="none"
-          marginTop="10px"
-          children={<SearchIcon width="20px" color="gray.400" />}
-        />
-        <Input
-          type="text"
-          bgColor='gray.100'
-          color="blackAlpha.800"
-          border="none"
-          marginTop="10px"
-          _placeholder={{ color: 'gray.400' }}
-          placeholder="Discover news, articles and more." />
-      </InputGroup>
+       <Search />
     </Stack>
   );
 };

@@ -1,28 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     Box,
     Link as ChakraLink,
 		Heading,
 		Flex} from '@chakra-ui/react';
 import Link from 'next/link'
-import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
-import { getLatestFashionPosts } from '../api/api.service';
+import { BlogPostsMainData } from '@/Types/types';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import PostCardNoImg from '../PostCardNoImg';
 import VerticalCardImg from '../VerticalCardImg';
 
-function BeautyPosts() {
-	const [data, setData] = useState<AllBlogPostsArray>();
+interface Props {
+	item: BlogPostsMainData[];
+}
 
-	const postsData = async () => {
-		const fetchedData = await getLatestFashionPosts();
-		setData(fetchedData);
-	}
-
-	useEffect(() => {
-	  postsData();
-	}, [])
-
+function BeautyPosts({ item }: Props) {
   return (
 		<Box
 			as="section"
@@ -78,13 +70,13 @@ function BeautyPosts() {
 				flexWrap="wrap"
 				justifyContent="flex-start"
 			>
-				{data && data?.articles?.slice(0, 3).map((item: BlogPostsMainData, index: number) =>
+				{item && item.slice(0, 3).map((item: BlogPostsMainData, index: number) =>
 					<VerticalCardImg key={index} item={item} />
 				)}
-				{data && data?.articles?.slice(3, 6).map((item: BlogPostsMainData, index: number) =>
+				{item && item.slice(3, 6).map((item: BlogPostsMainData, index: number) =>
 					<PostCardNoImg key={index} item={item} />
 				)}
-				{data && data?.articles?.slice(6, 9).map((item: BlogPostsMainData, index: number) =>
+				{item && item.slice(6, 9).map((item: BlogPostsMainData, index: number) =>
 					<VerticalCardImg key={index} item={item} />
 				)}
 			</Flex>

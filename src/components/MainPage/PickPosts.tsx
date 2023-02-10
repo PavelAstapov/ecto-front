@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     Box,
 		Heading,
 		Flex} from '@chakra-ui/react';
-import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
-import { getPickPosts } from '../api/api.service';
+import { BlogPostsMainData } from '@/Types/types';
 import PickPostCard from '../PickPostCard';
 
-function PickPosts() {
-	const [data, setData] = useState<AllBlogPostsArray>();
+interface Props {
+	item: BlogPostsMainData[];
+}
 
-	const postsData = async () => {
-		const fetchedData = await getPickPosts();
-		setData(fetchedData);
-	}
-
-	useEffect(() => {
-	  postsData();
-	}, [])
-
+function PickPosts({ item }: Props) {
   return (
 		<Box
 			as="section"
@@ -53,7 +45,7 @@ function PickPosts() {
 				alignItems={{ base: "flex-start", md: "stretch" }}
 				justifyContent="flex-start"
 			>
-				{data && data?.articles.slice(0, 5).map(( item: BlogPostsMainData, index: number ) =>
+				{item && item.slice(0, 5).map(( item: BlogPostsMainData, index: number ) =>
 					<PickPostCard key={index} item={item} />
 				)}
 			</Flex>

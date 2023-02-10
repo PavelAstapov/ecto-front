@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     Box,
     Link as ChakraLink,
@@ -6,23 +6,15 @@ import {
 		Flex
 	} from '@chakra-ui/react';
 import Link from 'next/link'
-import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
-import { getLatestWellnessPosts } from '../api/api.service';
+import { BlogPostsMainData } from '@/Types/types';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import HorizontalCardImg from '../HorizontalCardImg';
 
-function WellnessPosts() {
-	const [data, setData] = useState<AllBlogPostsArray>();
+interface Props {
+	item: BlogPostsMainData[];
+}
 
-	const postsData = async () => {
-		const fetchedData = await getLatestWellnessPosts();
-		setData(fetchedData);
-	}
-
-	useEffect(() => {
-	  postsData();
-	}, [])
-
+function WellnessPosts({ item }: Props) {
   return (
 		<Box
 			as="section"
@@ -78,7 +70,7 @@ function WellnessPosts() {
 				flexWrap="wrap"
 				justifyContent="flex-start"
 			>
-				{data && data.articles.map(( item: BlogPostsMainData, index: number ) =>
+				{item && item.map(( item: BlogPostsMainData, index: number ) =>
 					<HorizontalCardImg key={index} item={item} />
 				)}
 			</Flex>

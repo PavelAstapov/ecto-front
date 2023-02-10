@@ -1,27 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     Box,
     Link as ChakraLink,
 		Heading,
 		Flex} from '@chakra-ui/react';
 import Link from 'next/link'
-import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
-import { getLatestBeautyPosts } from '../api/api.service';
+import { BlogPostsMainData } from '@/Types/types';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import HorizontalCardImg from '../HorizontalCardImg';
 
-function BeautyPosts() {
-	const [data, setData] = useState<AllBlogPostsArray>();
+interface Props {
+	item: BlogPostsMainData[];
+}
 
-	const postsData = async () => {
-		const fetchedData = await getLatestBeautyPosts();
-		setData(fetchedData);
-	}
-
-	useEffect(() => {
-	  postsData();
-	}, [])
-
+function BeautyPosts({ item }: Props) {
   return (
 		<Box
 			as="section"
@@ -77,7 +69,7 @@ function BeautyPosts() {
 				flexWrap="wrap"
 				justifyContent="flex-start"
 			>
-				{data && data?.articles.map(( item: BlogPostsMainData, index: number ) =>
+				{item && item.map(( item: BlogPostsMainData, index: number ) =>
 					<HorizontalCardImg key={index} item={item} />
 				)}
 			</Flex>

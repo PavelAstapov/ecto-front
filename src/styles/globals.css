@@ -139,6 +139,34 @@ button.disabled {
   }
 }
 
+.nav-wrapper + section,
+.nav-wrapper + header {
+  margin-top: 96px;
+}
+
+@media(max-width: 820px) {
+  .nav-wrapper + section,
+  .nav-wrapper + header {
+    margin-top: 70px;
+  }
+}
+
+/* .ais-SearchBox-input {
+  background-color: #EDF2F7;
+  color: #323232;
+  padding: 15px;
+  width: 100%;
+}
+
+.ais-SearchBox-submit {
+  display: none;
+} */
+
+/* .ais-SearchBox-form {
+  background-color: #EDF2F7;
+  color: #323232;
+} */
+
 * {
   box-sizing: border-box;
   padding: 0;

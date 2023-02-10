@@ -1,25 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
     Box,
 		Heading,
 		Flex
 	} from '@chakra-ui/react';
-import { AllBlogPostsArray, BlogPostsMainData } from '@/Types/types';
-import { getTrendingPosts } from '../api/api.service';
+import { BlogPostsMainData } from '@/Types/types';
 import BigHorizontalCardImg from '../BigHorizontalCardImg';
 
-function TrendingPosts() {
-	const [data, setData] = useState<AllBlogPostsArray>();
+interface Props {
+	item: BlogPostsMainData[];
+}
 
-	const postsData = async () => {
-		const fetchedData = await getTrendingPosts();
-		setData(fetchedData);
-	}
-
-	useEffect(() => {
-	  postsData();
-	}, [])
-
+function TrendingPosts({ item }: Props) {
   return (
 		<Box
 			as="section"
@@ -55,7 +47,7 @@ function TrendingPosts() {
 				flexWrap="wrap"
 				justifyContent="flex-start"
 			>
-				{data && data.articles.map(( item: BlogPostsMainData, index: number ) =>
+				{item && item.map(( item: BlogPostsMainData, index: number ) =>
 					<BigHorizontalCardImg key={index} item={item} />
 				)}
 			</Flex>

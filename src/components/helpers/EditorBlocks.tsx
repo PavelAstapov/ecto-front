@@ -10,7 +10,6 @@ import {
   OrderedList,
   Flex,
   TableContainer,
-  TableCaption,
   Thead,
   Td,
   Tbody,
@@ -23,7 +22,7 @@ import HTMLReactParser from "html-react-parser";
 import Image from 'next/image'
 // @ts-ignore There is no types for this package
 import Prism from 'prismjs';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const Checklist: RenderFn<{
   items: any
@@ -118,8 +117,11 @@ export const ImageBlock: RenderFn<{
   }> = ({
     data,
   } ) => {
+    const [height, setHeight] = useState<number>();
 
-  const height = window && window.innerWidth < 767 ? data.file.formats.thumbnail.height : data.file.formats.medium.height;
+    useEffect(() => {
+      setHeight(window && window.innerWidth < 767 ? data.file.formats.thumbnail.height : data.file.formats.medium.height);
+    }, []);
 
   return (
     <>

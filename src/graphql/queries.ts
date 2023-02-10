@@ -1,5 +1,367 @@
 import { gql } from "@apollo/client";
 
+export const GET_HOMEPAGE_DATA = gql`
+  query GET_HOMEPAGE_DATA {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    top: articles(filters: { isTopPick: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 4 }) {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+		beauty: articles(filters: { category: {eq: "Beauty"}}, sort: "id:desc", pagination: { start: 0, limit: 6 })  {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+		fourLatest: articles(sort: "id:desc", pagination: { start: 0, limit: 4 }) {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+		wellness: articles(filters: { category: {eq: "Food & Wellness"}}, sort: "id:desc", pagination: { start: 0, limit: 6 })  {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+		fashion: articles(filters: { category: {eq: "Fashion & Style"}}, sort: "id:desc", pagination: { start: 0, limit: 9 })  {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+		lifestyle: articles(filters: { category: {eq: "Lifestyle"}}, sort: "id:desc", pagination: { start: 0, limit: 9 })  {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+		trending: articles(filters: { isTrending: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 2 })  {
+    data {
+      id
+      attributes {
+        title
+        url
+        updatedAt
+        category
+        isTrending
+        isTopPick
+        readingTime
+        previewText
+        author {
+          data {
+            attributes {
+               name
+               url
+               img {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+        mainImage {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+	}
+  homepage: homepage {
+    data {
+      id
+      attributes {
+        sponsorLink
+        sponsorImg {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        seo {
+          metaTitle
+          metaDescription
+          canonicalURL
+        }
+        articles {
+          data {
+            attributes {
+              title
+              url
+              readingTime
+              updatedAt
+              category
+              author {
+                data {
+                  attributes {
+                    name
+                    url
+                  }
+                }
+              }
+              mainImage {
+                data {
+                  attributes {
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 export const GET_FOUR_LATESTS_POSTS = gql`
   query GET_FOUR_LATESTS_POSTS {
     articles(sort: "id:desc", pagination: { start: 0, limit: 4 }) {
@@ -253,45 +615,45 @@ export const GET_LIFESTYLE_POSTS = gql`
 `
 
 export const GET_TRENDING_POSTS = gql`
-query GET_TRENDING_POSTS {
-	articles(filters: { isTrending: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 2 })  {
-    data {
-      id
-      attributes {
-        title
-        url
-        updatedAt
-        category
-        isTrending
-        isTopPick
-        readingTime
-        previewText
-        author {
-          data {
-            attributes {
-               name
-               url
-               img {
-                data {
-                  attributes {
-                    url
+  query GET_TRENDING_POSTS {
+    articles(filters: { isTrending: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 2 })  {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          isTrending
+          isTopPick
+          readingTime
+          previewText
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
                   }
                 }
               }
             }
           }
-        }
-        mainImage {
-          data {
-            attributes {
-              url
+          mainImage {
+            data {
+              attributes {
+                url
+              }
             }
           }
         }
       }
     }
-	}
-}
+  }
 `
 
 export const GET_HEADER_MENU = gql`
@@ -343,6 +705,53 @@ export const GET_FOOTER_MENU = gql`
         }
       }
     }
+  }
+`
+
+export const GET_MENU_DATA = gql`
+  query GET_MENU_DATA {
+    header: renderNavigation(
+        navigationIdOrSlug: "2"
+        type: TREE
+        menuOnly: false
+      ) {
+        id
+        title
+        type
+        related {
+          id
+        }
+        items {
+          id
+          title
+          type
+          path
+        }
+      }
+    footer: renderNavigation(
+        navigationIdOrSlug: "1"
+        type: TREE
+        menuOnly: false
+      ) {
+        id
+        title
+        type
+        related {
+          id
+        }
+        items {
+          id
+          title
+          type
+          items {
+            id
+            title
+            type
+            path
+            externalPath
+          }
+        }
+      }
   }
 `
 
@@ -411,7 +820,59 @@ export const GET_BLOG_SLUGS = gql`
 
 export const ARTICLE_DATA = gql`
   query ARTICLE_DATA ($slugUrl: String!) {
-    articles(filters: { url: { eq: $slugUrl }}) {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    articles: articles(filters: { url: { eq: $slugUrl }}) {
       data {
         id
         attributes {
@@ -538,7 +999,59 @@ export const GET_LATEST_CATEGORY_POSTS = gql`
 
 export const TAG_DATA = gql`
   query TAG_DATA ($slugUrl: String!) {
-    tags(filters: { url: { eq: $slugUrl }}) {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    tags: tags(filters: { url: { eq: $slugUrl }}) {
       data {
         id
         attributes {
@@ -558,7 +1071,59 @@ export const TAG_DATA = gql`
 
 export const AUTHOR_DATA = gql`
   query LATESTS_POSTS_BY_TAG ($slugUrl: String!)  {
-    authors (filters: { url: { eq: $slugUrl }}) {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    author: authors (filters: { url: { eq: $slugUrl }}) {
       data {
         attributes {
           name
@@ -646,7 +1211,59 @@ export const LATESTS_POSTS_BY_TAG = gql`
 
 export const BEAUTY_PAGE = gql`
   query BEAUTY_PAGE {
-    beauty {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    beauty: beauty {
       data {
         attributes {
           title
@@ -664,7 +1281,59 @@ export const BEAUTY_PAGE = gql`
 
 export const LIFESTYLE_PAGE = gql`
   query LIFESTYLE_PAGE {
-    lifestyle {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    lifestyle: lifestyle {
       data {
         attributes {
           title
@@ -682,7 +1351,59 @@ export const LIFESTYLE_PAGE = gql`
 
 export const FASHION_PAGE = gql`
   query FASHION_PAGE {
-    fashionAndStyle {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    fashion: fashionAndStyle {
       data {
         attributes {
           title
@@ -700,7 +1421,59 @@ export const FASHION_PAGE = gql`
 
 export const FOOD_PAGE = gql`
   query FOOD_PAGE {
-    foodAndWellness {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    food: foodAndWellness {
       data {
         attributes {
           title
@@ -828,7 +1601,59 @@ export const LATESTS_POSTS_BY_AUTHOR = gql`
 
 export const GET_PRIVACY_NOTICE = gql`
   query GET_PRIVACY_NOTICE {
-    privacyNotice {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    privacy: privacyNotice {
       data {
         attributes {
           title
@@ -846,7 +1671,59 @@ export const GET_PRIVACY_NOTICE = gql`
 
 export const GET_CONTACT_US = gql`
   query GET_CONTACT_US {
-    contactUs {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    contact: contactUs {
       data {
         attributes{
           title
@@ -884,7 +1761,59 @@ export const GET_COOKIES = gql`
 
 export const GET_ADVERTISEMENT = gql`
   query GET_ADVERTISEMENT {
-    advertisement {
+    cookies: cookies {
+      data {
+        attributes {
+          name
+          description
+          host
+          duration
+        }
+      }
+    }
+    header: renderNavigation(
+      navigationIdOrSlug: "2"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        path
+      }
+    }
+    footer: renderNavigation(
+      navigationIdOrSlug: "1"
+      type: TREE
+      menuOnly: false
+    ) {
+      id
+      title
+      type
+      related {
+        id
+      }
+      items {
+        id
+        title
+        type
+        items {
+          id
+          title
+          type
+          path
+          externalPath
+        }
+      }
+    }
+    advert: advertisement {
       data {
         attributes {
           title

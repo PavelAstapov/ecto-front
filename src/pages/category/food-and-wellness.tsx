@@ -1,82 +1,50 @@
 import { Box, Flex, Heading, Text, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { getFoodPage, getLatestPostsByCategory } from "@/components/api/api.service";
 import { useRouter } from "next/router";
-import { Skeleton } from '@chakra-ui/react';
 import { NextSeo } from "next-seo";
 import VerticalCardImg from "@/components/VerticalCardImg";
 import { BlogPostsMainData } from "@/Types/types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { GetServerSideProps } from "next";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { FOOD_PAGE, LATESTS_POSTS_BY_CATEGORY } from "@/graphql/queries";
+import HeaderMenu from "@/components/HeaderMenu";
+import Footer from "@/components/Footer";
 
-export default function PostPage() {
-	const [data, setData] = useState<any>();
+export default function PostPage(props: any) {
 	const [pageUrl, setPageUrl] = useState<any>();
-	const [articlesData, setArticlesData] = useState<any>();
 	const [page, setPage] = useState<number>();
 	const [counter, setCounter] = useState<number>();
 	const [pageCount, setPageCount] = useState<number>();
 	const [isPrevDisabled, setIsPrevDisabled] = useState<boolean>();
 	const [isNextDisabled, setIsNextDisabled] = useState<boolean>();
 	const [isPagination, setIsPagination] = useState<boolean>();
-	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const router = useRouter();
 
-	const categorieData = async () => {
-		const fetchedData = await getFoodPage();
-
-		setData(fetchedData);
-		setPageUrl('food-and-wellness');
-		setIsLoading(false);
-	}
-
-	const updateAticlesList = async () => {
-		try {
-			const fetchedData = await getLatestPostsByCategory('Food & Wellness', page!);
-
-			if(!(fetchedData.articles.data).length){
-				await router.push('/404');
-			}
-
-			setArticlesData(fetchedData);
-			setCounter(fetchedData.articles.meta.pagination.total);
-			setIsLoading(false);
-			setIsPagination(fetchedData.articles.meta.pagination.pageCount > 1);
-			setPageCount(fetchedData.articles.meta.pagination.pageCount);
-		} catch {
-			router.push('/404');
-		}
-	}
-
 	useEffect(() => {
-		if (router.isReady) {
-			setPage(+(router.query.page as unknown as number) || 1);
+		setIsPrevDisabled(page === 1);
 
-			categorieData();
-		}
-	}, [router.isReady]);
-
-	useEffect(() => {
-		setIsPrevDisabled(page === 1)
-
-		articlesData && setIsNextDisabled(page === articlesData.articles.meta.pagination.pageCount);
+		props && setIsNextDisabled(page === props.latestPosts.data.articles.meta.pagination.pageCount);
 
 		if(pageUrl !== undefined){
 			if(page !== 1) {
 				router.push({
 					pathname: '/category/food-and-wellness',
 					query: { page: page },
-				});
+				},
+				`/category/food-and-wellness?page=${page}`,
+				{shallow: true})
 			}
 
 			if(page === 1) {
 				router.push({
 					pathname: '/category/food-and-wellness',
-					query: {},
-				});
+				},
+				`/category/food-and-wellness`,
+				{shallow: true});
 			}
 		}
-
-	}, [page, articlesData]);
+	}, [page]);
 
 	const handelClick = useEffect(() => {
 		window.scrollTo({
@@ -84,24 +52,30 @@ export default function PostPage() {
 			left: 0,
 			behavior: 'smooth'
 		});
-
-		setArticlesData(null);
-		setIsLoading(true);
-
-		if(router.isReady && page !== undefined) {
-			updateAticlesList();
-		}
 	}, [page])
+
+	useEffect(() => {
+		setPageUrl('food-and-wellness');
+		setCounter(props.latestPosts.data.articles.meta.pagination.total);
+		setPageCount(props.latestPosts.data.articles.meta.pagination.pageCount);
+		setIsPagination(props.latestPosts.data.articles.meta.pagination.pageCount > 1);
+		if (router.isReady) {
+			setPage(+(router.query.page as unknown as number) || 1);
+		}
+	}, [router.query.slug, router.query.page])
+
+	useEffect(() => {
+		router.replace(router.asPath);
+	}, [router.asPath])
 
   return(
 		<>
-			{data && (
-				<NextSeo
-					title={data?.category.attributes.seo.metaTitle}
-					description={data?.category.attributes.seo.metaDescription}
-					canonical={data?.category.attributes.seo.canonicalURL}
-				/>
-			)}
+			<HeaderMenu cookies={props.cookies.data} menu={props.header[0].items} />
+			<NextSeo
+				title={props.food.data.attributes.seo.metaTitle}
+				description={props.food.data.attributes.seo.metaDescription}
+				canonical={props.food.data.attributes.seo.canonicalURL}
+			/>
 			<Box
 				maxWidth="1216px"
 				margin="0 auto"
@@ -110,105 +84,54 @@ export default function PostPage() {
 				as="header"
 				pt={{ base: "60px", lg: "80px" }}
 			>
-				{data && (
-					<>
-						<Heading
-							mb="32px"
-							as="h1"
-							fontWeight="800"
-							position="relative"
-						>
-							{data.category.attributes.title}
-							<Text
-								as="span"
-								bgColor="blue.500"
-								width="20px"
-								height="20px"
-								color="#fff"
-								display="inline-flex"
-								fontWeight="700"
-								fontSize="12px"
-								lineHeight="16px"
-								justifyContent="center"
-								alignItems="center"
-								position="relative"
-								ml="20px"
-								top="-5px"
-							>
-								{counter}
-							</Text>
-						</Heading>
-						<Text
-							color="gray.600"
-							fontSize="20px"
-							lineHeight="28px"
-						>
-							{data.category.attributes.description}
-						</Text>
-					</>
-				)}
-			</Box>
-			{isLoading && (
-				<Flex
-					maxWidth="1216px"
-					margin="0 auto"
-					width="90%"
-					columnGap="32px"
-					rowGap="32px"
-					flexWrap="wrap"
-					pb={{ base: "44px", lg: "64px" }}
-					justifyContent="flex-start"
+				<Heading
+				mb="32px"
+				as="h1"
+				fontWeight="800"
+				position="relative"
+			>
+				{props.food.data.attributes.title}
+				<Text
+					as="span"
+					bgColor="blue.500"
+					width="20px"
+					height="20px"
+					color="#fff"
+					display="inline-flex"
+					fontWeight="700"
+					fontSize="12px"
+					lineHeight="16px"
+					justifyContent="center"
+					alignItems="center"
+					position="relative"
+					ml="20px"
+					top="-5px"
 				>
-					<Skeleton
-						height={{ base: "200px", md: "400px"}}
-						width={{ base: "100%", lg: "calc(33% - 17.5px)" }}
-						borderRadius="6px"
-					/>
-					<Skeleton
-						height={{ base: "200px", md: "400px"}}
-						width={{ base: "100%", lg: "calc(33% - 17.5px)" }}
-						borderRadius="6px"
-					/>
-					<Skeleton
-						height={{ base: "200px", md: "400px"}}
-						width={{ base: "100%", lg: "calc(33% - 17.5px)" }}
-						borderRadius="6px"
-					/>
-					<Skeleton
-						height={{ base: "200px", md: "400px"}}
-						width={{ base: "100%", lg: "calc(33% - 17.5px)" }}
-						borderRadius="6px"
-					/>
-					<Skeleton
-						height={{ base: "200px", md: "400px"}}
-						width={{ base: "100%", lg: "calc(33% - 17.5px)" }}
-						borderRadius="6px"
-					/>
-					<Skeleton
-						height={{ base: "200px", md: "400px"}}
-						width={{ base: "100%", lg: "calc(33% - 17.5px)" }}
-						borderRadius="6px"
-					/>
-				</Flex>
-			)}
-			{articlesData && (
-				<>
-					<Flex
-						maxWidth="1216px"
-						margin="0 auto"
-						width="90%"
-						columnGap="32px"
-						rowGap="32px"
-						flexWrap="wrap"
-						pb={{ base: "44px", lg: "64px" }}
-						justifyContent="flex-start"
-					>
-						{(articlesData.articles.data).map((item: BlogPostsMainData, index: number) =>
-							<VerticalCardImg notMainPage key={index} item={item} />
-						)}
-					</Flex>
-				</>
-			)}
+					{counter}
+				</Text>
+			</Heading>
+			<Text
+				color="gray.600"
+				fontSize="20px"
+				lineHeight="28px"
+			>
+				{props.food.data.attributes.description}
+			</Text>
+			</Box>
+			<Flex
+				maxWidth="1216px"
+				margin="0 auto"
+				width="90%"
+				columnGap="32px"
+				rowGap="32px"
+				flexWrap="wrap"
+				pb={{ base: "44px", lg: "64px" }}
+				justifyContent="flex-start"
+			>
+				{(props.latestPosts.data.articles.data).map((item: BlogPostsMainData, index: number) =>
+					<VerticalCardImg notMainPage key={index} item={item} />
+				)}
+			</Flex>
 			{isPagination && (
 				<Flex
 					padding="12px"
@@ -265,6 +188,28 @@ export default function PostPage() {
 					</Button>
 				</Flex>
 			)}
+			<Footer menu={props.footer[0].items} />
 		</>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const client = new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
+		cache: new InMemoryCache(),
+	})
+
+	const { data } = await client.query({
+		query: FOOD_PAGE,
+		variables: { slugUrl: context.params?.slug },
+	})
+
+	const latestPosts = await client.query({
+		query: LATESTS_POSTS_BY_CATEGORY,
+		variables: { category: 'Food & Wellness',  page: (context.query?.page && +(context.query?.page)) || 1 },
+	})
+
+	return {
+		props: {...data, latestPosts: {...latestPosts} }
+  }
 }
