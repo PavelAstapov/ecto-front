@@ -6,8 +6,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Text,
@@ -47,7 +45,7 @@ function Search() {
         Discover news, articles and more
       </Box>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
+        <ModalOverlay backdropFilter="blur(16px)" />
         <ModalContent
           width="90vw"
           padding={{ base:"40px 0px 30px 0px", md: "40px 15px 30px 15px" }}

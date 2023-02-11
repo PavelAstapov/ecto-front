@@ -1,7 +1,6 @@
 import React from 'react';
 import Footer from '@/components/Footer';
 import HeaderMenu from '@/components/HeaderMenu';
-import MainBanner from '@/components/MainPage/MainBanner'
 import ResentPosts from '@/components/MainPage/ResentPosts';
 import SubscribeBlock from '@/components/SubscribeBlock';
 import { GET_HOMEPAGE_DATA } from '@/graphql/queries';
@@ -27,6 +26,9 @@ export default function Home(props: any) {
     loading: () => <p>Loading</p>,
   })
   const LifestylePosts = dynamic(() => import('@/components/MainPage/LifestylePosts'), {
+    loading: () => <p>Loading</p>,
+  })
+  const MainBanner = dynamic(() => import('@/components/MainPage/MainBanner'), {
     loading: () => <p>Loading</p>,
   })
   return (
