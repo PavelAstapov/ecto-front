@@ -335,7 +335,12 @@ function PrivacyNotice(props: any) {
 
 export default PrivacyNotice;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
 		cache: new InMemoryCache(),

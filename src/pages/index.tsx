@@ -42,7 +42,12 @@ export default function Home(props: any) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
+
   const client = new ApolloClient({
     uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
 		cache: new InMemoryCache(),

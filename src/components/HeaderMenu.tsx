@@ -25,7 +25,6 @@ import 'instantsearch.css/themes/reset.css';
 import 'instantsearch.css/themes/satellite.css';
 import dynamic from 'next/dynamic'
 
-
 interface Props {
   menu: HeaderMenuData[];
   cookies: any;
@@ -35,7 +34,7 @@ function HeaderMenu({ menu, cookies }: Props) {
   const { isOpen, onToggle } = useDisclosure();
   const [isCookieBanner, seIsCookieBanner] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<Boolean>();
-  const MobileNav = dynamic(() => import('@/components/MobileNav'))
+  const MobileNav = dynamic(() => import('@/components/MobileNav'));
 
 
   useEffect(() => {

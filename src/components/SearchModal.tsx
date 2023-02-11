@@ -5,7 +5,6 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  useDisclosure,
   Link as ChakraLink,
   Text,
   Heading
@@ -21,11 +20,12 @@ interface Props {
 }
 
 export default function SearchModal({ isOpen, onClose }: Props) {
-  const [showResult, setShowResult] = useState<boolean>(false)
+  const [showResult, setShowResult] = useState<boolean>(false);
   const searchClient = algoliasearch(
     'J393BVUV3P',
     '2aefd684f363941cd9a713c451289148'
   );
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay backdropFilter="blur(16px)" />
@@ -43,7 +43,7 @@ export default function SearchModal({ isOpen, onClose }: Props) {
             onChangeCapture={(e) => setShowResult((e.target as HTMLInputElement).value !== '')}
             onResetCapture={() => setShowResult(false)}
           />
-          {showResult && <Hits hitComponent={Hit} />}
+          {showResult && <Hits onClick={onClose} hitComponent={Hit} />}
           <Box
             width="100%"
             mt="20px"
