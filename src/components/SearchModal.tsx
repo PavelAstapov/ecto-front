@@ -21,7 +21,6 @@ interface Props {
 }
 
 export default function SearchModal({ isOpen, onClose }: Props) {
-  const { onOpen } = useDisclosure();
   const [showResult, setShowResult] = useState<boolean>(false)
   const searchClient = algoliasearch(
     'J393BVUV3P',

@@ -23,6 +23,7 @@ import { hasCookie, setCookie } from 'cookies-next';
 import Search from './MainPage/Search';
 import 'instantsearch.css/themes/reset.css';
 import 'instantsearch.css/themes/satellite.css';
+import dynamic from 'next/dynamic'
 
 
 interface Props {
@@ -33,11 +34,16 @@ interface Props {
 function HeaderMenu({ menu, cookies }: Props) {
   const { isOpen, onToggle } = useDisclosure();
   const [isCookieBanner, seIsCookieBanner] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<Boolean>();
+  const MobileNav = dynamic(() => import('@/components/MobileNav'))
+
 
   useEffect(() => {
     if(!hasCookie("notFirstVisit")){
       seIsCookieBanner(true)
     }
+
+    setIsMobile((window.innerWidth <= 830) ? true : false)
 
     const cookiesData = async () => {
       cookies.map((item: any) => {
@@ -149,9 +155,7 @@ function HeaderMenu({ menu, cookies }: Props) {
                     </ChakraLink>
                   )}
                 </Flex>
-                <Collapse in={isOpen} animateOpacity>
-                  <MobileNav props={menu} />
-                </Collapse>
+                {isMobile && <MobileNav isOpen={isOpen} item={menu}/>}
               </>
             )}
           <IconButton
@@ -168,39 +172,5 @@ function HeaderMenu({ menu, cookies }: Props) {
     </>
   );
 }
-
-const MobileNav = ({ props }: any) => {
-  return (
-    <Stack
-      bg="white"
-      position="fixed"
-      left="0px"
-      width="100%"
-      top="60px"
-      pb="20px"
-      zIndex={999}
-      alignItems="center"
-    >
-      {props.map((item: HeaderMenuData) =>
-        <ChakraLink
-          as={Link}
-          key={item.id}
-          _hover={{ color: 'blue.600' }}
-          pt="10px"
-          width="100%"
-          fontWeight="600"
-          pl="20px"
-          borderBottom="1px solid"
-          borderColor='gray.300'
-          pb="15px"
-          href={item.path}
-        >
-          {item.title}
-        </ChakraLink>
-      )}
-       <Search />
-    </Stack>
-  );
-};
 
 export default HeaderMenu;
