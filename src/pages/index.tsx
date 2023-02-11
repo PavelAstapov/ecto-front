@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from '@/components/Footer';
 import HeaderMenu from '@/components/HeaderMenu';
+import MainBanner from '@/components/MainPage/MainBanner'
 import ResentPosts from '@/components/MainPage/ResentPosts';
 import SubscribeBlock from '@/components/SubscribeBlock';
 import { GET_HOMEPAGE_DATA } from '@/graphql/queries';
@@ -10,27 +11,12 @@ import { NextSeo } from 'next-seo';
 import dynamic from 'next/dynamic'
 
 export default function Home(props: any) {
-  const PickPosts = dynamic(() => import('@/components/MainPage/PickPosts'), {
-    loading: () => <p>Loading</p>,
-  })
-  const BeautyPosts = dynamic(() => import('@/components/MainPage/BeautyPosts'), {
-    loading: () => <p>Loading</p>,
-  })
-  const FashionPosts = dynamic(() => import('@/components/MainPage/FashionPosts'), {
-    loading: () => <p>Loading</p>,
-  })
-  const TrendingPosts = dynamic(() => import('@/components/MainPage/TrendingPosts'), {
-    loading: () => <p>Loading</p>,
-  })
-  const WellnessPosts = dynamic(() => import('@/components/MainPage/WellnessPosts'), {
-    loading: () => <p>Loading</p>,
-  })
-  const LifestylePosts = dynamic(() => import('@/components/MainPage/LifestylePosts'), {
-    loading: () => <p>Loading</p>,
-  })
-  const MainBanner = dynamic(() => import('@/components/MainPage/MainBanner'), {
-    loading: () => <p>Loading</p>,
-  })
+  const PickPosts = dynamic(() => import('@/components/MainPage/PickPosts'))
+  const BeautyPosts = dynamic(() => import('@/components/MainPage/BeautyPosts'))
+  const FashionPosts = dynamic(() => import('@/components/MainPage/FashionPosts'))
+  const TrendingPosts = dynamic(() => import('@/components/MainPage/TrendingPosts'))
+  const WellnessPosts = dynamic(() => import('@/components/MainPage/WellnessPosts'))
+  const LifestylePosts = dynamic(() => import('@/components/MainPage/LifestylePosts'))
   return (
     <>
       <HeaderMenu cookies={props.cookies.data} menu={props.header[0].items} />

@@ -362,399 +362,6 @@ export const GET_HOMEPAGE_DATA = gql`
 }
 `
 
-export const GET_FOUR_LATESTS_POSTS = gql`
-  query GET_FOUR_LATESTS_POSTS {
-    articles(sort: "id:desc", pagination: { start: 0, limit: 4 }) {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          isTrending
-          isTopPick
-          readingTime
-          previewText
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_PICK_POSTS = gql`
-  query GET_PICK_POSTS {
-    articles(filters: { isTopPick: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 4 }) {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          isTrending
-          isTopPick
-          readingTime
-          previewText
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_BEAUTY_POSTS = gql`
-  query GET_BEAUTY_POSTS {
-    articles(filters: { category: {eq: "Beauty"}}, sort: "id:desc", pagination: { start: 0, limit: 6 })  {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          isTrending
-          isTopPick
-          readingTime
-          previewText
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_WELLNESS_POSTS = gql`
-  query GET_WELLNESS_POSTS {
-    articles(filters: { category: {eq: "Food & Wellness"}}, sort: "id:desc", pagination: { start: 0, limit: 6 })  {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          isTrending
-          isTopPick
-          readingTime
-          previewText
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_FASHION_POSTS = gql`
-  query GET_FASHION_POSTS {
-    articles(filters: { category: {eq: "Fashion & Style"}}, sort: "id:desc", pagination: { start: 0, limit: 9 })  {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          isTrending
-          isTopPick
-          readingTime
-          previewText
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_LIFESTYLE_POSTS = gql`
-  query GET_LIFESTYLE_POSTS {
-    articles(filters: { category: {eq: "Lifestyle"}}, sort: "id:desc", pagination: { start: 0, limit: 9 })  {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          isTrending
-          isTopPick
-          readingTime
-          previewText
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_TRENDING_POSTS = gql`
-  query GET_TRENDING_POSTS {
-    articles(filters: { isTrending: { eq: true }}, sort: "id:desc", pagination: { start: 0, limit: 2 })  {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          isTrending
-          isTopPick
-          readingTime
-          previewText
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-export const GET_HEADER_MENU = gql`
-  query GET_HEADER_MENU {
-    renderNavigation(
-      navigationIdOrSlug: "2"
-      type: TREE
-      menuOnly: false
-    ) {
-      id
-      title
-      type
-      related {
-        id
-      }
-      items {
-        id
-        title
-        type
-        path
-      }
-    }
-  }
-`
-
-export const GET_FOOTER_MENU = gql`
-  query GET_FOOTER_MENU {
-    renderNavigation(
-      navigationIdOrSlug: "1"
-      type: TREE
-      menuOnly: false
-    ) {
-      id
-      title
-      type
-      related {
-        id
-      }
-      items {
-        id
-        title
-        type
-        items {
-          id
-          title
-          type
-          path
-          externalPath
-        }
-      }
-    }
-  }
-`
-
-export const GET_MENU_DATA = gql`
-  query GET_MENU_DATA {
-    header: renderNavigation(
-        navigationIdOrSlug: "2"
-        type: TREE
-        menuOnly: false
-      ) {
-        id
-        title
-        type
-        related {
-          id
-        }
-        items {
-          id
-          title
-          type
-          path
-        }
-      }
-    footer: renderNavigation(
-        navigationIdOrSlug: "1"
-        type: TREE
-        menuOnly: false
-      ) {
-        id
-        title
-        type
-        related {
-          id
-        }
-        items {
-          id
-          title
-          type
-          items {
-            id
-            title
-            type
-            path
-            externalPath
-          }
-        }
-      }
-  }
-`
-
 export const GET_HOME_PAGE = gql`
   query GET_HOME_PAGE {
     homepage {
@@ -952,45 +559,6 @@ export const GET_NEXT_POST = gql`
         attributes {
           url
           title
-        }
-      }
-    }
-  }
-`
-
-export const GET_LATEST_CATEGORY_POSTS = gql`
-  query GET_LATEST_CATEGORY_POSTS ($category: String!, $id: ID!) {
-    articles(filters: {category: {eq: $category}, id: {ne: $id} }, sort: "id:desc", pagination: { start: 0, limit: 4 })  {
-      data {
-        id
-        attributes {
-          title
-          url
-          updatedAt
-          category
-          readingTime
-          author {
-            data {
-              attributes {
-                name
-                url
-                img {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-              }
-            }
-          }
-          mainImage {
-            data {
-              attributes {
-                url
-              }
-            }
-          }
         }
       }
     }
@@ -1207,6 +775,45 @@ export const LATESTS_POSTS_BY_TAG = gql`
     }
 	}
 }
+`
+
+export const GET_LATEST_CATEGORY_POSTS = gql`
+  query GET_LATEST_CATEGORY_POSTS ($category: String!, $id: ID!) {
+    articles(filters: {category: {eq: $category}, id: {ne: $id} }, sort: "id:desc", pagination: { start: 0, limit: 4 })  {
+      data {
+        id
+        attributes {
+          title
+          url
+          updatedAt
+          category
+          readingTime
+          author {
+            data {
+              attributes {
+                name
+                url
+                img {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+          }
+          mainImage {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `
 
 export const BEAUTY_PAGE = gql`
@@ -1738,21 +1345,6 @@ export const GET_CONTACT_US = gql`
             metaDescription
             canonicalURL
           }
-        }
-      }
-    }
-  }
-`
-
-export const GET_COOKIES = gql`
-  query GET_COOKIES {
-    cookies {
-      data {
-        attributes {
-          name
-          description
-          host
-          duration
         }
       }
     }

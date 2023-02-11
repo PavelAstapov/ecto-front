@@ -20,10 +20,9 @@ import {
 } from '@chakra-ui/icons';
 import { HeaderMenuData } from '@/Types/types';
 import { hasCookie, setCookie } from 'cookies-next';
-// import Search from './MainPage/Search';
+import Search from './MainPage/Search';
 import 'instantsearch.css/themes/reset.css';
 import 'instantsearch.css/themes/satellite.css';
-import dynamic from 'next/dynamic'
 
 
 interface Props {
@@ -34,9 +33,6 @@ interface Props {
 function HeaderMenu({ menu, cookies }: Props) {
   const { isOpen, onToggle } = useDisclosure();
   const [isCookieBanner, seIsCookieBanner] = useState<boolean>(false);
-  const Search = dynamic(() => import('./MainPage/Search'), {
-    loading: () => <p>Loading</p>,
-  })
 
   useEffect(() => {
     if(!hasCookie("notFirstVisit")){
@@ -174,9 +170,6 @@ function HeaderMenu({ menu, cookies }: Props) {
 }
 
 const MobileNav = ({ props }: any) => {
-  const Search = dynamic(() => import('./MainPage/Search'), {
-    loading: () => <p>Loading</p>,
-  })
   return (
     <Stack
       bg="white"
