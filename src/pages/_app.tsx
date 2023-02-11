@@ -3,9 +3,7 @@ import '@/styles/globals.css';
 import "/src/styles/prism-atom-dark.css";
 import type { AppProps } from 'next/app';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { GET_HOMEPAGE_DATA } from '@/graphql/queries';
+import NextNProgress from 'nextjs-progressbar';
 
 const theme = extendTheme({
   styles: {
@@ -27,23 +25,9 @@ const theme = extendTheme({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
+      <NextNProgress height={3} />
       <Component {...pageProps} />
     </ChakraProvider>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const client = new ApolloClient({
-    uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-		cache: new InMemoryCache(),
-	})
-
-	const { data } = await client.query({
-		query: GET_HOMEPAGE_DATA
-	})
-
-	return {
-		props: data
-  }
 }
 
