@@ -39,7 +39,7 @@ function Search() {
         justifyContent="flex-start"
         borderRadius="6px"
         alignItems="center"
-        mt={{ base: "20px !important", lg: "0"}}
+        mt={{ base: "20px !important", lg: "0 !important"}}
         _hover={{ cursor: "pointer" }}
         display='flex'
       >
