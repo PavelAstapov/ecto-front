@@ -50,12 +50,12 @@ export default function PostPage( props: any ) {
 				openGraph={{
 					title: props.articles.data[0].attributes.seo.metaTitle,
 					description: props.articles.data[0].attributes.seo.metaDescription,
-					url: `${process.env.SITE_URL}/${props.articles.data[0].attributes.url}`,
+					url: `${process.env.NEXT_PUBLIC_SITE_URL}/${props.articles.data[0].attributes.url}`,
 					type: 'article',
 					article: {
 						publishedTime: props.articles.data[0].attributes.updatedAt,
 						authors: [
-							`${process.env.SITE_URL}/authors/${props.articles.data[0].attributes.author.data.attributes.url}`,
+							`${process.env.NEXT_PUBLIC_SITE_URL}/authors/${props.articles.data[0].attributes.author.data.attributes.url}`,
 						],
 					},
 					images: [
