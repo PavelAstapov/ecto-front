@@ -46,7 +46,7 @@ function Footer({ menu }: Props) {
           </Text>
         </Box>
         <Flex
-          align="center"
+          align="flex-start"
           columnGap="36px"
           as="nav"
           display="flex"

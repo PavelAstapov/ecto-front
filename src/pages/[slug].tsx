@@ -55,7 +55,7 @@ export default function PostPage( props: any ) {
 					article: {
 						publishedTime: props.articles.data[0].attributes.updatedAt,
 						authors: [
-							`${process.env.NEXT_PUBLIC_API_URL}/authors/${props.articles.data[0].attributes.author.data.attributes.url}`,
+							`${process.env.SITE_URL}/authors/${props.articles.data[0].attributes.author.data.attributes.url}`,
 						],
 					},
 					images: [
@@ -243,7 +243,7 @@ export default function PostPage( props: any ) {
 									</ChakraLink>
 								)}
 							</Flex>
-							<ShareButtons />
+							<ShareButtons url={props.articles.data[0].attributes.url} />
 						</Flex>
 						<Comments slug={props.articles.data[0].id} />
 						<Box

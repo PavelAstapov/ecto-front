@@ -90,6 +90,10 @@ button.disabled {
   color: #323232;
 }
 
+.article p a {
+  color: #3182CE;
+}
+
 /* .article table {
   width: 100%;
   border: 1px solid #E2E8F0;

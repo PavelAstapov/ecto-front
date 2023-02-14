@@ -1,6 +1,7 @@
-import { Box, Button, Divider, FormControl, FormLabel, Input, Textarea, Text, Avatar, Flex, FormErrorMessage, useToast, Spinner } from "@chakra-ui/react";
+import { Box, Button, Divider, FormControl, Input, Textarea, Text, Avatar, Flex, FormErrorMessage, useToast, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import dayjs from "dayjs";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import uuid from 'react-uuid';
 import { getComments } from "./api/api.service";
@@ -16,6 +17,7 @@ function Comments({ slug }: Props){
   const [contentError, setContentError] = useState<boolean>(false);
   const [isLoading, setIsLoading ] = useState(false);
   const toast = useToast();
+  const router = useRouter();
 
   const handleCommentSubmit = async (e: any) => {
     e.preventDefault();
@@ -65,6 +67,12 @@ function Comments({ slug }: Props){
 
     getData()
   }, [])
+
+  useEffect(() => {
+    setEmailError(false);
+    setNameError(false);
+    setContentError(false);
+  }, [router.query.slug])
 
   return(
     <Box

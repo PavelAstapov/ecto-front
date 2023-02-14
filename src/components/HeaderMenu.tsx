@@ -6,7 +6,6 @@ import {
   useDisclosure,
   Link as ChakraLink,
   Stack,
-  Collapse,
   Container,
   Text,
   CloseButton,
