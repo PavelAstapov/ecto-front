@@ -69,7 +69,6 @@ export const Header: RenderFn<{
       <Heading
         mt={{ base: "30px", lg: "48px" }}
         mb="32px"
-        _first={{ mt: "0" }}
         color="gray.800"
         as={TitleLevel}
       >

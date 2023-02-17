@@ -94,6 +94,13 @@ button.disabled {
   color: #3182CE;
 }
 
+.chakra-link.disabled {
+  color: #2D3748;
+  background-color: #fff;
+  border-color: #E2E8F0;
+  pointer-events: none
+}
+
 /* .article table {
   width: 100%;
   border: 1px solid #E2E8F0;
@@ -132,6 +139,56 @@ button.disabled {
   padding-top: 20px;
 }
 
+.article p + div {
+  margin-top: 32px;
+}
+
+.article p + h2,
+.article p + h3,
+.article p + h4,
+.article p + h5,
+.article p + h6,
+.article p + ul {
+  margin-top: 32px;
+}
+
+.article ul,
+.article ol {
+  margin-left: 32px;
+}
+
+.article ul li + li,
+.article ol li + li {
+  margin-top: 5px;
+}
+
+.article h2:nth-child(1),
+.article h3:nth-child(1),
+.article h4:nth-child(1) {
+  margin-top: 0;
+}
+
+.article h2 {
+  font-size: 60px;
+}
+
+.article h3 {
+  font-size: 48px;
+}
+
+.article h4 {
+  font-size: 43px;
+}
+
+.article h5 {
+  font-size: 36px;
+}
+
+.article h5 {
+  font-size: 20px;
+}
+
+
 .article p:last-of-type {
   margin-bottom: 32px;
 }
@@ -140,6 +197,25 @@ button.disabled {
   .article iframe {
     max-height: 200px;
     min-height: auto;
+  }
+  .article h2 {
+    font-size: 36px;
+  }
+
+  .article h3 {
+    font-size: 30px;
+  }
+
+  .article h4 {
+    font-size: 24px;
+  }
+
+  .article h5 {
+    font-size: 20px;
+  }
+
+  .article h5 {
+    font-size: 16px;
   }
 }
 

@@ -473,6 +473,8 @@ export default function PostPage( props: any ) {
 											fontWeight="500"
 											fontSize="16px"
 											lineHeight="24px"
+											position="relative"
+											pl="35px"
 											color="gray.600"
 											_hover={{ textDecor: "none", color: "blue.500" }}
 											_before={{
@@ -485,7 +487,8 @@ export default function PostPage( props: any ) {
 												bgColor: "blue.50",
 												borderRadius: "100%",
 												marginRight: "16px",
-												position: "relative",
+												position: "absolute",
+												left: "0",
 												top: "2px",
 												color: "blue.500",
 												fontWeight: "600"

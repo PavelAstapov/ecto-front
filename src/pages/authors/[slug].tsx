@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text, Button, Link as ChakraLink } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Link as ChakraLink } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
@@ -18,6 +18,7 @@ export default function PostPage(props: any) {
 	const [page, setPage] = useState<number>();
 	const [counter, setCounter] = useState<number>();
 	const [pageCount, setPageCount] = useState<number>();
+	const [prevHref, setPrevHref] = useState<string>();
 	const [isPrevDisabled, setIsPrevDisabled] = useState<boolean>();
 	const [isNextDisabled, setIsNextDisabled] = useState<boolean>();
 	const [isPagination, setIsPagination] = useState<boolean>();
@@ -62,6 +63,14 @@ export default function PostPage(props: any) {
 			left: 0,
 			behavior: 'smooth'
 		});
+
+		if(page === 2) {
+			setPrevHref(`/authors/${props.author.data[0].attributes.url}`)
+		} else if (page === 1){
+			setPrevHref('')
+		} else {
+			setPrevHref(`?page=${page! - 1}`)
+		}
 	}, [page])
 
 	useEffect(() => {
@@ -294,24 +303,27 @@ export default function PostPage(props: any) {
 					margin="0 auto"
 					mb="80px"
 				>
-					<Button
+					<ChakraLink
+						href={prevHref}
 						className={isPrevDisabled? 'disabled' : ''}
-						onClick={() => [setPage(page! - 1), handelClick]}
+						onClick={(e) => [e.preventDefault(), setPage(page! - 1), handelClick]}
 						width={{ base: "90px", md: "150px"}}
 						display="flex"
 						alignItems="center"
 						bgColor="blue.500"
+						height="40px"
+						justifyContent="center"
+						borderRadius="6px"
 						lineHeight="1"
 						fontWeight="600"
 						fontSize={{ base: "13px", md: "16px" }}
 						color="#fff"
 						border="1px solid transparent"
-						disabled={true}
 						_hover={{ color: "gray.800", bgColor: "#fff", borderColor: "#E2E8F0" }}
 						_disabled={{  bgColor: "#fff", borderColor: "#E2E8F0" }}
 					>
 						<ChevronLeftIcon />Previous
-					</Button>
+					</ChakraLink>
 					<Text
 						fontSize={{ base: "13px", md: "16px" }}
 						color="gray.500"
@@ -319,11 +331,15 @@ export default function PostPage(props: any) {
 					>
 						Page {page} of {pageCount}
 					</Text>
-					<Button
+					<ChakraLink
+						href={isNextDisabled ? "" : `?page=${page! + 1}`}
 						className={isNextDisabled ? 'disabled' : ''}
-						onClick={() => [setPage(page! + 1), handelClick]}
+						onClick={(e) => [e.preventDefault(), setPage(page! + 1), handelClick]}
 						width={{ base: "90px", md: "150px"}}
 						display="flex"
+						justifyContent="center"
+						borderRadius="6px"
+						height="40px"
 						alignItems="center"
 						bgColor="blue.500"
 						lineHeight="1"
@@ -335,7 +351,7 @@ export default function PostPage(props: any) {
 						_disabled={{ color: "gray.800", bgColor: "#fff", borderColor: "#E2E8F0" }}
 					>
 						Next <ChevronRightIcon />
-					</Button>
+					</ChakraLink>
 				</Flex>
 			)}
 			<Footer menu={props.footer[0].items} />
