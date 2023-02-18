@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image'
 import { BlogPostsMainData } from '@/Types/types';
 import { formatDate } from './helpers/format-date';
+import { CldImage } from 'next-cloudinary';
 
 interface Props {
   item?: BlogPostsMainData,
@@ -38,7 +39,7 @@ function HorizontalCardImg({item}: Props) {
         overflow="hidden"
         display="block"
       >
-        <Image
+        <CldImage
           placeholder="blur"
           blurDataURL={item!.attributes.mainImage.data.attributes.url}
           priority={false}

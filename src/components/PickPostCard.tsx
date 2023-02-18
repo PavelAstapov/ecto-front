@@ -3,6 +3,7 @@ import { Stack, Text, Avatar, Link as ChakraLink, Box, Flex } from '@chakra-ui/r
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatDate } from './helpers/format-date';
+import { CldImage } from 'next-cloudinary';
 
 interface Props {
   item?: BlogPostsMainData,
@@ -27,7 +28,7 @@ function PickPostCard({item}: Props) {
       transition="transform 250ms ease, box-shadow 250ms ease"
       _hover={{ textDecoration: "none", boxShadow: "0px 2px 4px rgb(46 41 51 / 8%), 0px 5px 10px rgb(71 63 79 / 16%)", transform: "translateY(-0.25rem)" }}
     >
-      <Image
+      <CldImage
         placeholder="blur"
         blurDataURL={item!.attributes.mainImage.data.attributes.url}
         style={{ objectFit:"cover" }}

@@ -23,6 +23,7 @@ import Image from 'next/image'
 // @ts-ignore There is no types for this package
 import Prism from 'prismjs';
 import { useEffect, useState } from "react";
+import { CldImage } from "next-cloudinary";
 
 export const Checklist: RenderFn<{
   items: any
@@ -137,7 +138,7 @@ export const ImageBlock: RenderFn<{
           width="100%"
           position="relative"
         >
-          <Image
+          <CldImage
             placeholder="blur"
             blurDataURL={data.file.formats.medium.url}
             priority={false}

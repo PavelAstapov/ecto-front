@@ -8,8 +8,8 @@ import {
 import PostCardNoImg from '../PostCardNoImg';
 import { MainBanner } from '@/Types/types';
 import { GetTagInfo } from '../helpers/teg-helper';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { CldImage } from 'next-cloudinary';
 
 interface Props {
 	data: MainBanner[];
@@ -67,7 +67,7 @@ function MainBanner({ data }: Props ) {
 									left="0"
 									display="none"
 									position="absolute">
-									<Image
+									<CldImage
 										fill
 										style={{ objectFit:"cover" }}
 										placeholder="blur"

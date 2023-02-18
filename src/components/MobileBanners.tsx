@@ -8,9 +8,9 @@ import {
   Flex
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { MainBanner } from '@/Types/types';
 import { GetTagInfo } from './helpers/teg-helper';
+import { CldImage } from 'next-cloudinary';
 
 interface Props {
   data: MainBanner[];
@@ -30,7 +30,7 @@ export default function MobileBanners({ data }: Props) {
             left="0"
             href={item?.attributes.url}
             position="relative">
-            <Image
+            <CldImage
               fill
               priority
               placeholder="blur"

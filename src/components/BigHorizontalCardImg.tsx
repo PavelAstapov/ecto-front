@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { BlogPostsMainData } from '@/Types/types';
 import { formatDate } from './helpers/format-date';
 import { GetTagInfo } from './helpers/teg-helper';
+import { CldImage } from 'next-cloudinary';
 
 interface Props {
   item?: BlogPostsMainData,
@@ -39,7 +40,7 @@ function HorizontalCardImg({item}: Props) {
         overflow="hidden"
         display="block"
       >
-        <Image
+        <CldImage
           placeholder="blur"
           blurDataURL={item!.attributes.mainImage.data.attributes.url}
           style={{ objectFit:"cover" }}

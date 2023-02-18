@@ -5,12 +5,12 @@ import {
 		Text,
 		Heading,
 		Flex} from '@chakra-ui/react';
-import Image from 'next/image';
 import Link from 'next/link'
 import { BlogPostsMainData } from '@/Types/types';
 import CategoryListItem from '../CategoryListItem';
 import RecentlyPostCard from '../RecentlyPostCard';
 import { categoryData } from '../helpers/category - data';
+import { CldImage } from 'next-cloudinary';
 
 interface Props {
 	item: BlogPostsMainData[];
@@ -90,7 +90,7 @@ function ResentPosts({ sponsorImg, sponsorLink, item }: Props) {
 									filter="drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.06))"
 								>
 									{sponsorImg && (
-										<Image
+										<CldImage
 											src={sponsorImg}
 											style={{ objectFit:"cover" }}
 											placeholder="blur"

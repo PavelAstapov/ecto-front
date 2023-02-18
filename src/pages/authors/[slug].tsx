@@ -12,6 +12,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { AUTHOR_DATA, LATESTS_POSTS_BY_AUTHOR } from "@/graphql/queries";
 import HeaderMenu from "@/components/HeaderMenu";
 import Footer from "@/components/Footer";
+import { CldImage } from "next-cloudinary";
 
 export default function PostPage(props: any) {
 	const [pageUrl, setPageUrl] = useState<any>();
@@ -156,7 +157,7 @@ export default function PostPage(props: any) {
 					minWidth="128px"
 					height="128px"
 				>
-					<Image
+					<CldImage
 						fill
 						placeholder="blur"
 						blurDataURL={props.author.data[0].attributes.img.data.attributes.url}
