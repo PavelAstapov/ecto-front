@@ -17,7 +17,9 @@ interface Props {
 
 function MainBanner({ data }: Props ) {
 	const [isMobile, setIsMobile] = useState<Boolean>();
-	const MobileBanners = dynamic(() => import('@/components/MobileBanners'))
+	const MobileBanners = dynamic(() => import('@/components/MobileBanners'), {
+		ssr: false,
+	})
 
 	useEffect(() => {
 		setIsMobile((window.innerWidth <= 830) ? true : false)

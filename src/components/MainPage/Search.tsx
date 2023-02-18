@@ -7,7 +7,9 @@ import {
 
 function Search() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const SearchModal = dynamic(() => import('@/components/SearchModal'))
+  const SearchModal = dynamic(() => import('@/components/SearchModal'), {
+    ssr: false,
+  })
 
   return (
     <>

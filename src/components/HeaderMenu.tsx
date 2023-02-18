@@ -33,7 +33,9 @@ function HeaderMenu({ menu, cookies }: Props) {
   const { isOpen, onToggle } = useDisclosure();
   const [isCookieBanner, seIsCookieBanner] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<Boolean>();
-  const MobileNav = dynamic(() => import('@/components/MobileNav'));
+  const MobileNav = dynamic(() => import('@/components/MobileNav'), {
+    ssr: false,
+  } );
 
 
   useEffect(() => {
