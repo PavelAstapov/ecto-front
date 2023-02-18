@@ -8,15 +8,20 @@ import { GET_HOMEPAGE_DATA } from '@/graphql/queries';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { GetServerSideProps } from 'next';
 import { NextSeo } from 'next-seo';
-import dynamic from 'next/dynamic'
+import PickPosts from '@/components/MainPage/PickPosts';
+import BeautyPosts from '@/components/MainPage/BeautyPosts';
+import FashionPosts from '@/components/MainPage/FashionPosts';
+import TrendingPosts from '@/components/MainPage/TrendingPosts';
+import WellnessPosts from '@/components/MainPage/WellnessPosts';
+import LifestylePosts from '@/components/MainPage/LifestylePosts';
 
 export default function Home(props: any) {
-  const PickPosts = dynamic(() => import('@/components/MainPage/PickPosts'))
-  const BeautyPosts = dynamic(() => import('@/components/MainPage/BeautyPosts'))
-  const FashionPosts = dynamic(() => import('@/components/MainPage/FashionPosts'))
-  const TrendingPosts = dynamic(() => import('@/components/MainPage/TrendingPosts'))
-  const WellnessPosts = dynamic(() => import('@/components/MainPage/WellnessPosts'))
-  const LifestylePosts = dynamic(() => import('@/components/MainPage/LifestylePosts'))
+  // const PickPosts = dynamic(() => import('@/components/MainPage/PickPosts'))
+  // const BeautyPosts = dynamic(() => import('@/components/MainPage/BeautyPosts'))
+  // const FashionPosts = dynamic(() => import('@/components/MainPage/FashionPosts'))
+  // const TrendingPosts = dynamic(() => import('@/components/MainPage/TrendingPosts'))
+  // const WellnessPosts = dynamic(() => import('@/components/MainPage/WellnessPosts'))
+  // const LifestylePosts = dynamic(() => import('@/components/MainPage/LifestylePosts'))
   return (
     <>
       <HeaderMenu cookies={props.cookies.data} menu={props.header[0].items} />
