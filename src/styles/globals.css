@@ -139,7 +139,9 @@ button.disabled {
   padding-top: 20px;
 }
 
-.article p + div {
+.article p + div,
+.article div + p,
+.article script + p {
   margin-top: 32px;
 }
 
@@ -191,6 +193,15 @@ button.disabled {
 
 .article p:last-of-type {
   margin-bottom: 32px;
+}
+
+header h1,
+aside .small-title {
+ color: #1A202C;
+}
+
+footer .chakra-text {
+  color: #1A202C;
 }
 
 @media(max-width: 767px) {

@@ -22,6 +22,7 @@ import { ARTICLE_DATA, GET_LATEST_CATEGORY_POSTS, GET_NEXT_POST } from "@/graphq
 import HeaderMenu from "@/components/HeaderMenu";
 import Footer from "@/components/Footer";
 import { CldImage } from 'next-cloudinary';
+import axios from "axios";
 
 export default function PostPage( props: any ) {
 	const [date, setDate] = useState<String>();
@@ -75,7 +76,7 @@ export default function PostPage( props: any ) {
 				datePublished={props.articles.data[0].attributes.updatedAt}
 				authorName={[
 					{
-						name: props.articles.data[0].attributes.author.data &&props.articles.data[0].attributes.author.data.attributes.name,
+						name: props.articles.data[0].attributes.author.data && props.articles.data[0].attributes.author.data.attributes.name,
 						url: props.articles.data[0].attributes.author.data && `${process.env.NEXT_PUBLIC_SITE_URL}/authors/${props.articles.data[0].attributes.author.data.attributes.url}`,
 					},
 				]}
@@ -202,19 +203,21 @@ export default function PostPage( props: any ) {
 							className="article"
 							padding="0 32px 0 32px"
 						>
-							<Blocks
-								data={JSON.parse(props.articles.data[0].attributes.content)}
-								renderers={{
-									checklist: Checklist,
-									header: Header,
-									paragraph: Paragraph,
-									delimiter: Delimiter,
-									image: ImageBlock,
-									list: ListBLock,
-									quote: Quote,
-									code: CodeBlock,
-									table: TableBlock,
-								}}/>
+							{props.articles.data[0].attributes.content && (
+								<Blocks
+									data={JSON.parse(props.articles.data[0].attributes.content)}
+									renderers={{
+										checklist: Checklist,
+										header: Header,
+										paragraph: Paragraph,
+										delimiter: Delimiter,
+										image: ImageBlock,
+										list: ListBLock,
+										quote: Quote,
+										code: CodeBlock,
+										table: TableBlock,
+									}}/>
+							)}
 						</Box>
 						<Divider
 							mt="32px"
@@ -267,7 +270,7 @@ export default function PostPage( props: any ) {
 							</Flex>
 							<ShareButtons url={props.articles.data[0].attributes.url} />
 						</Flex>
-						<Comments slug={props.articles.data[0].id} />
+						<Comments item={props.comments && props.comments} />
 						<Box
 							padding="5px"
 						>
@@ -463,75 +466,81 @@ export default function PostPage( props: any ) {
 								</Box>
 							</Box>
 						)}
-
-						<Box
-							display={{ base: "none", md: "block" }}
-						>
-							<Text
-								fontWeight="700"
-								fontSize="18px"
-								mb="12px"
-							>
-								Table Of Contents
-							</Text>
-							<Box
-								width="100%"
-								boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
-								borderRadius="8px"
-								bgColor="#fff"
-								overflow="hidden"
-								padding="28px"
-							>
-								<OrderedList
-									display="flex"
-									marginLeft="0"
-									flexDir="column"
-									rowGap="24px"
-									style={{ counterReset: "item" }}
-									listStyleType="none"
-								>
-								{JSON.parse(props.articles.data[0].attributes.content).blocks.filter((item: any) => {
-									return item.type === 'header' && (item.data.level && item.data.level === 2)
-									}).map((item: any, index: number) =>
-									<ListItem key={index} style={{ counterIncrement: "item"}}>
-										<ChakraLink
-											offset="120"
-											display="block"
-											as={AnchorLink}
-											fontWeight="500"
-											fontSize="16px"
-											lineHeight="24px"
-											position="relative"
-											pl="35px"
-											color="gray.600"
-											_hover={{ textDecor: "none", color: "blue.500" }}
-											_before={{
-												content: "counter(item)",
-												display: "inline-flex",
-												justifyContent: "center",
-												alignItems: "center",
-												width: "24px",
-												height: "24px",
-												bgColor: "blue.50",
-												borderRadius: "100%",
-												marginRight: "16px",
-												position: "absolute",
-												left: "0",
-												top: "2px",
-												color: "blue.500",
-												fontWeight: "600"
-												}}
-												href={`#${(item.data.text).replace(/\s/g, '')}`}
-											>
-												{item.data.text}
-										</ChakraLink>
-									</ListItem>
-								)}
-								</OrderedList>
-							</Box>
-						</Box>
+						{JSON.parse(props.articles.data[0].attributes.content).blocks.filter((item: any) => {
+							return item.type === 'header' && (item.data.level && item.data.level === 2)
+							}).length > 0 && (
+								<Box
+										display={{ base: "none", md: "block" }}
+									>
+									<Text
+										fontWeight="700"
+										fontSize="18px"
+										mb="12px"
+										className="small-title"
+									>
+										Table Of Contents
+									</Text>
+									<Box
+										width="100%"
+										boxShadow="0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)"
+										borderRadius="8px"
+										bgColor="#fff"
+										overflow="hidden"
+										padding="28px"
+									>
+										<OrderedList
+											display="flex"
+											marginLeft="0"
+											flexDir="column"
+											rowGap="24px"
+											style={{ counterReset: "item" }}
+											listStyleType="none"
+										>
+										{JSON.parse(props.articles.data[0].attributes.content).blocks.filter((item: any) => {
+											return item.type === 'header' && (item.data.level && item.data.level === 2)
+											}).map((item: any, index: number) =>
+											<ListItem key={index} style={{ counterIncrement: "item"}}>
+												<ChakraLink
+													offset="120"
+													display="block"
+													as={AnchorLink}
+													fontWeight="500"
+													fontSize="16px"
+													lineHeight="24px"
+													position="relative"
+													pl="35px"
+													color="gray.600"
+													_hover={{ textDecor: "none", color: "blue.500" }}
+													_before={{
+														content: "counter(item)",
+														display: "inline-flex",
+														justifyContent: "center",
+														alignItems: "center",
+														width: "24px",
+														height: "24px",
+														bgColor: "blue.50",
+														borderRadius: "100%",
+														marginRight: "16px",
+														position: "absolute",
+														left: "0",
+														top: "2px",
+														color: "blue.500",
+														fontWeight: "600"
+														}}
+														href={`#${(item.data.text).replace(/\s/g, '')}`}
+													>
+														{item.data.text}
+												</ChakraLink>
+											</ListItem>
+										)}
+										</OrderedList>
+									</Box>
+								</Box>
+							)
+						}
 						<Box>
 							<Text
+								className="small-title"
 								fontWeight="700"
 								fontSize="18px"
 								mb="12px"
@@ -619,8 +628,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		variables: { id: (+(data.articles.data[0].id) - 2) },
 	})
 
+	const comments = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/api::article.article:${data.articles.data[0].id}?filters[approvalStatus][$eq]=APPROVED`);
+
 	return {
-		props: { ...data, categoryPosts: {...categoryPosts}, prevAticle: {...prevAticle}, nextAticle: {...nextAticle}, saveNextArticle: {...saveNextArticle} },
+		props: { ...data, categoryPosts: {...categoryPosts}, prevAticle: {...prevAticle}, nextAticle: {...nextAticle}, saveNextArticle: {...saveNextArticle}, comments: comments.data },
   }
 }
 

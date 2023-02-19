@@ -4,14 +4,21 @@ import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import uuid from 'react-uuid';
-import { getComments } from "./api/api.service";
 
-interface Props {
-  slug: string,
+type Comment = {
+  author: {
+    name: string
+  },
+  content: string,
+  createdAt: string
+  id: number,
 }
 
-function Comments({ slug }: Props){
-  const [comments, setComments] = useState<any>();
+interface Props {
+  item?: Comment[]
+}
+
+function Comments({ item }: Props){
   const [emailError, setEmailError] = useState<boolean>(false);
   const [nameError, setNameError] = useState<boolean>(false);
   const [contentError, setContentError] = useState<boolean>(false);
@@ -57,16 +64,6 @@ function Comments({ slug }: Props){
       }
     }
   }
-
-  useEffect(() => {
-    const getData = async () => {
-      const fetchedData = await getComments(slug);
-
-      setComments(fetchedData.data);
-    }
-
-    getData()
-  }, [])
 
   useEffect(() => {
     setEmailError(false);
@@ -132,7 +129,7 @@ function Comments({ slug }: Props){
         </Button>
         {isLoading && <Spinner margin=" 0 auto" mt="15px" color='blue.500' />}
       </form>
-      {comments && (
+      {item && (
         <Box
           mt="16px"
         >
@@ -143,15 +140,15 @@ function Comments({ slug }: Props){
             color="blue.500"
             mb="16px"
           >
-            {comments.length} comments
+            {item.length} comments
           </Text>
           <Flex
             flexDir="column"
             rowGap="16px"
           >
-            {comments.map((item: any) =>
+            {item.map((item: any) =>
               <Box
-                key={item.id}
+                key={uuid()}
                 borderRadius="6px"
                 border="1px solid #E2E8F0"
                 padding="20px"
@@ -185,7 +182,6 @@ function Comments({ slug }: Props){
           </Flex>
         </Box>
       )}
-
     </Box>
   )
 }

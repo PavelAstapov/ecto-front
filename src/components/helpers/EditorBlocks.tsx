@@ -192,6 +192,7 @@ export const ListBLock: RenderFn<{
 
 export const Quote: RenderFn<{
   text: string;
+  caption: string;
   }> = ({
     data,
   }) => {
@@ -208,6 +209,9 @@ export const Quote: RenderFn<{
         fontSize={{ base: "16px", lg: "20px" }}
       >
         {HTMLReactParser(data.text)}
+        <br />
+        <br />
+        <b>{HTMLReactParser(data.caption)}</b>
       </Text>
     </Box>
   )
