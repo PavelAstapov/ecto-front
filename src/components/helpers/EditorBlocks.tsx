@@ -209,9 +209,13 @@ export const Quote: RenderFn<{
         fontSize={{ base: "16px", lg: "20px" }}
       >
         {HTMLReactParser(data.text)}
-        <br />
-        <br />
-        <b>{HTMLReactParser(data.caption)}</b>
+        {data.caption && (
+          <>
+            <br />
+            <br />
+            <b>{HTMLReactParser(data.caption)}</b>
+          </>
+        )}
       </Text>
     </Box>
   )
