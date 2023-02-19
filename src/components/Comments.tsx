@@ -16,9 +16,10 @@ type Comment = {
 
 interface Props {
   item?: Comment[]
+  id: number
 }
 
-function Comments({ item }: Props){
+function Comments({ item, id }: Props){
   const [emailError, setEmailError] = useState<boolean>(false);
   const [nameError, setNameError] = useState<boolean>(false);
   const [contentError, setContentError] = useState<boolean>(false);
@@ -36,7 +37,7 @@ function Comments({ item }: Props){
     if(!(e.target.email.value === '') && !(e.target.name.value === '') && !(e.target.content.value === '')){
       setIsLoading(true);
       try {
-        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/api::article.article:${slug}`, {
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/api::article.article:${id}`, {
           "author": {
             "id": uuid(),
             "name": e.target.name.value,

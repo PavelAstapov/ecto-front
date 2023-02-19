@@ -270,7 +270,7 @@ export default function PostPage( props: any ) {
 							</Flex>
 							<ShareButtons url={props.articles.data[0].attributes.url} />
 						</Flex>
-						<Comments item={props.comments && props.comments} />
+						<Comments id={props.articles.data[0].id} item={props.comments && props.comments} />
 						<Box
 							padding="5px"
 						>
