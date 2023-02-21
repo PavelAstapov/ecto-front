@@ -135,6 +135,14 @@ button.disabled {
   padding: 12px 24px;
 } */
 
+body,
+h2,
+h3,
+h4,
+.chakra-text {
+  color: #1a202c;
+}
+
 .article p + p {
   padding-top: 20px;
 }
