@@ -12,7 +12,7 @@ import HeaderMenu from "@/components/HeaderMenu";
 import Footer from "@/components/Footer";
 
 export default function PostPage(props: any) {
-	const [pageUrl, setPageUrl] = useState<any>();
+	const [pageUrl, setPageUrl] = useState<string>();
 	const [page, setPage] = useState<number>();
 	const [counter, setCounter] = useState<number>();
 	const [pageCount, setPageCount] = useState<number>();
@@ -30,26 +30,26 @@ export default function PostPage(props: any) {
 		if(pageUrl !== undefined){
 			if(page !== 1) {
 				router.push({
-					pathname: `/tags/[slug]`,
+					pathname: router.route,
 					query: {
 						pageUrl,
 						page
 					}
 				},
 					`/tags/${pageUrl}?page=${page}`,
-					{shallow: true}
+					{shallow: false}
 				);
 			}
 
-			if(page === 1) {
+			if(page === 1 && +(router.query.page as string) === 2) {
 				router.push({
-					pathname: `/tags/[slug]`,
+					pathname: router.route,
 					query: {
 						pageUrl
 					}
 				},
 					`/tags/${pageUrl}`,
-					{shallow: true}
+					{shallow: false}
 				);
 			}
 		}
@@ -79,11 +79,7 @@ export default function PostPage(props: any) {
 		if (router.isReady) {
 			setPage(+(router.query.page as unknown as number) || 1);
 		}
-	}, [router.query.slug, router.query.page])
-
-	useEffect(() => {
-		router.replace(router.asPath);
-	}, [router.asPath])
+	}, [])
 
   return(
 		<>

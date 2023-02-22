@@ -26,6 +26,16 @@ export default function PostPage(props: any) {
 	const router = useRouter();
 
 	useEffect(() => {
+		setPageUrl(props.author.data[0].attributes.url);
+		setCounter(props.latesPosts.data.articles.meta.pagination.total);
+		setPageCount(props.latesPosts.data.articles.meta.pagination.pageCount);
+		setIsPagination(props.latesPosts.data.articles.meta.pagination.pageCount > 1);
+		if (router.isReady) {
+			setPage(+(router.query.page as unknown as number) || 1);
+		}
+	}, [router.query.slug, router.query.page])
+
+	useEffect(() => {
 		setIsPrevDisabled(page === 1);
 
 		props && setIsNextDisabled(page === props.latesPosts.data.articles.meta.pagination.pageCount);
@@ -33,26 +43,26 @@ export default function PostPage(props: any) {
 		if(pageUrl !== undefined){
 			if(page !== 1) {
 				router.push({
-					pathname: `/authors/[slug]`,
+					pathname: router.route,
 					query: {
 						pageUrl,
 						page
 					}
 				},
 					`/authors/${pageUrl}?page=${page}`,
-					{shallow: true}
+					{shallow: false}
 				);
 			}
 
-			if(page === 1) {
+			if(page === 1 && +(router.query.page as string) === 2) {
 				router.push({
-					pathname: `/authors/[slug]`,
+					pathname: router.route,
 					query: {
 						pageUrl
 					}
 				},
 					`/authors/${pageUrl}`,
-					{shallow: true}
+					{shallow: false}
 				);
 			}
 		}
@@ -73,20 +83,6 @@ export default function PostPage(props: any) {
 			setPrevHref(`?page=${page! - 1}`)
 		}
 	}, [page])
-
-	useEffect(() => {
-		setPageUrl(props.author.data[0].attributes.url);
-		setCounter(props.latesPosts.data.articles.meta.pagination.total);
-		setPageCount(props.latesPosts.data.articles.meta.pagination.pageCount);
-		setIsPagination(props.latesPosts.data.articles.meta.pagination.pageCount > 1);
-		if (router.isReady) {
-			setPage(+(router.query.page as unknown as number) || 1);
-		}
-	}, [router.query.slug, router.query.page])
-
-	useEffect(() => {
-		router.replace(router.asPath);
-	}, [router.asPath])
 
   return(
 		<>

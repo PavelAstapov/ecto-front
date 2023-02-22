@@ -34,7 +34,7 @@ export default function PostPage(props: any) {
 					query: { page: page },
 				},
 				`/category/lifestyle?page=${page}`,
-				{shallow: true})
+				{shallow: false})
 			}
 
 			if(page === 1) {
@@ -42,7 +42,7 @@ export default function PostPage(props: any) {
 					pathname: '/category/lifestyle',
 				},
 				`/category/lifestyle`,
-				{shallow: true});
+				{shallow: false});
 			}
 		}
 	}, [page]);

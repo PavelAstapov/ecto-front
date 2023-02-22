@@ -96,8 +96,8 @@ function HeaderMenu({ menu, cookies }: Props) {
               spacing={{ base: '0.5', md: '1.5' }}
               pe={{ base: '4', sm: '0' }}
             >
-              <Text fontWeight="medium">This site is using cookies.</Text>
-              <Text color="on-accent-muted">
+              <Text color="#fff" fontWeight="medium">This site is using cookies.</Text>
+              <Text color="#fff">
                 Read our <ChakraLink as={Link} href="/privacy-notice">Privacy notice</ChakraLink>
               </Text>
             </Stack>

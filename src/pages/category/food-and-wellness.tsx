@@ -34,7 +34,7 @@ export default function PostPage(props: any) {
 					query: { page: page },
 				},
 				`/category/food-and-wellness?page=${page}`,
-				{shallow: true})
+				{shallow: false})
 			}
 
 			if(page === 1) {
@@ -42,7 +42,7 @@ export default function PostPage(props: any) {
 					pathname: '/category/food-and-wellness',
 				},
 				`/category/food-and-wellness`,
-				{shallow: true});
+				{shallow: false});
 			}
 		}
 	}, [page]);
@@ -72,10 +72,6 @@ export default function PostPage(props: any) {
 			setPage(+(router.query.page as unknown as number) || 1);
 		}
 	}, [router.query.slug, router.query.page])
-
-	useEffect(() => {
-		router.replace(router.asPath);
-	}, [router.asPath])
 
   return(
 		<>
